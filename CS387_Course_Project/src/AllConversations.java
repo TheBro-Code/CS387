@@ -31,6 +31,9 @@ public class AllConversations extends HttpServlet {
 			response.sendRedirect("LoginServlet");
 		}
 		
+		String resp = request.getParameter("resolved");
+		
+		
 		String userid = (String) session.getAttribute("id");
 		String query = 
 				"with max_ts as " + 
@@ -44,7 +47,7 @@ public class AllConversations extends HttpServlet {
 				"       end as uid, m.last_timestamp, m.num_msgs " + 
 				"from conversations c natural join max_ts m " +
 				"where c.uid1 = ? or c.uid2 = ?" + 
-				"order by num_msgs desc, last_timestamp desc";
+				"order by num_msgs > 0 desc, last_timestamp desc";
 		String res = DbHelper.executeQueryJson(query, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING, 
 						DbHelper.ParamType.STRING,
@@ -53,6 +56,7 @@ public class AllConversations extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);
+//		out.print(resp);
 	}
 
 	/**

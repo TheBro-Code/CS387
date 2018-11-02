@@ -38,7 +38,8 @@ public class ConversationDetail extends HttpServlet {
 				+ "from posts p, conversations c "
 				+ "where p.thread_id = c.thread_id "
 				+ "and ((c.uid1 = ? and c.uid2 = ?) or "
-				+ "		(c.uid2 = ? and c.uid1 = ?))";
+				+ "		(c.uid2 = ? and c.uid1 = ?)) "
+				+ "order by p.timestamp desc";
 		String json = DbHelper.executeQueryJson(messagesQuery, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
 						DbHelper.ParamType.STRING,

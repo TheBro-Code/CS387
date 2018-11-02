@@ -1,5 +1,9 @@
 
 import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -37,15 +41,17 @@ public class NewMessage extends HttpServlet {
 		String other_id = request.getParameter("other_id");
 		String newMsg = request.getParameter("msg");
 		
-		String sanitizedMsg = newMsg; //Edit this line to sanitize newMsg before assigning to sanitizedMsg
+		String sanitizedMsg = Jsoup.clean(newMsg, Whitelist.basic());; //Edit this line to sanitize newMsg before assigning to sanitizedMsg
 		
 		//Get thread_id
 		String threadQuery = "select thread_id "
 				+ "from conversations "
-				+ "where uid1 = ? and uid2 = ?";
+				+ "where (uid1 = ? and uid2 = ?) "
+				+ "or (uid1 = ? and uid2 = ?)";
 		List<List<Object>> res = DbHelper.executeQueryList(threadQuery, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING, DbHelper.ParamType.STRING}, 
-				new String[] {userid, other_id});
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING, DbHelper.ParamType.STRING, 
+						DbHelper.ParamType.STRING, DbHelper.ParamType.STRING}, 
+				new String[] {userid, other_id, other_id, userid});
 		
 		if(res.isEmpty()) {
 			response.getWriter().print(DbHelper.errorJson("Conversation does not exist"));
