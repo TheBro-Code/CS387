@@ -44,10 +44,7 @@ public class Treatments extends HttpServlet {
 		}
 		
 		String userid = (String) session.getAttribute("userid");
-//		String role = (String) session.getAttribute("role");
-//////////////////////////////////////////////////////////////////////////
-// role is not being set to patient for patient login
-		String role = "patient";
+		String role = (String) session.getAttribute("role");
 		
 		String showResolved = request.getParameter("resolved");
 		

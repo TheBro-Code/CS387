@@ -70,6 +70,8 @@ public class LoginServlet extends HttpServlet {
 			if (dbPass != null && dbPass.equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userid", userid);
+				session.setAttribute("role",role);
+				response.getWriter().print("Login Successful");
 				response.sendRedirect("PatientHome");
 			}
 			else {
@@ -87,6 +89,7 @@ public class LoginServlet extends HttpServlet {
 			if (dbPass != null && dbPass.equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userid", userid);
+				session.setAttribute("role",role);
 				response.getWriter().print("Login Successful");
 				response.sendRedirect("DoctorHome");
 			}

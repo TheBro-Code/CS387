@@ -231,9 +231,7 @@ function loadAppointmentDetail(appointment_id)
 }
 
 function searchDoctor(name,hospital,locality,qualifications)
-{
-	alert(name + " " + hospital + " " + locality + " " + qualifications);
-	
+{	
 	SearchDoctor = "<table id=\"doctor_table\" class=\"display\">"
 	      + " <thead>" 
 	      + " <tr> <th>NAME</th> <th> HOSPITAL</th> <th>ADDRESS </th> <th> QUALIFICATIONS </th> </tr>"
@@ -244,7 +242,7 @@ function searchDoctor(name,hospital,locality,qualifications)
 	  	$("#content").html(SearchDoctor).promise().done(function()
 		  		{
 					  listAppointments = $("#doctor_table").DataTable({
-					      columns: [{data:"Name"}, {data:"Hospital"}, {data:"Address"},{data:"Qualifications"}],
+					      columns: [{data:"name"}, {data:"hospital"}, {data:"hospital_address"},{data:"qualifications"}],
 						  ajax : {
 								url: "SearchDoctor",
 								data: {

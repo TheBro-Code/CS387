@@ -35,35 +35,34 @@ public class SearchDoctor extends HttpServlet {
 		
 		String name = request.getParameter("name");
 		String hospital = request.getParameter("hospital");
-		String address = request.getParameter("address");
+		String address = request.getParameter("locality");
 		String qualifications = request.getParameter("qualifications");
-		
-		System.out.println(name + " " + hospital + " " + address + " " + qualifications);
 		
 		String DoctorSearchQuery;
 		String json;
 		
 		if(hospital.isEmpty() && address.isEmpty() && qualifications.isEmpty())
 		{
-			System.out.println(name + " " + hospital + " " + address + " " + qualifications);
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
-				+	"where doctors.doctor_id = users.userid and name = ?;";
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
+				+	"where doctors.doctor_id = users.userid and name = ?";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
 					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 					new String[] {name});
+			
+			System.out.println(json);
 			response.getWriter().print(json);
 		}
 		else if(name.isEmpty() && address.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital = ?;";
 			
-			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
+			json = DbHelper.executeQueryJson(DoctorSearchQuery,
 					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 					new String[] {hospital});
 			response.getWriter().print(json);
@@ -71,8 +70,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && hospital.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -83,8 +82,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && hospital.isEmpty() && address.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -95,8 +94,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && hospital.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and qualifications = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -108,8 +107,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty()  && address.isEmpty() )
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital = ? and qualifications = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -121,8 +120,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -134,8 +133,8 @@ public class SearchDoctor extends HttpServlet {
 		else if( hospital.isEmpty() && address.isEmpty() )
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and qualifications = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -147,8 +146,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(hospital.isEmpty()  && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and hospital_address = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -160,8 +159,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(address.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and hospital = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -173,8 +172,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ? and qualifications = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -187,8 +186,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(hospital.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and name = ? and qualifications = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -201,8 +200,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(address.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and hospital = ? and qualifications = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -215,8 +214,8 @@ public class SearchDoctor extends HttpServlet {
 		else if(qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ? and name = ?;";
 			
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -229,8 +228,8 @@ public class SearchDoctor extends HttpServlet {
 		else
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications"
-				+	"from doctors,users"
+					"select name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ? and qualifications = ? and name = ?;";
 		
 			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
@@ -240,8 +239,7 @@ public class SearchDoctor extends HttpServlet {
 							DbHelper.ParamType.STRING}, 
 					new String[] {name, hospital, address, qualifications});
 			response.getWriter().print(json);
-		}
-						
+		}				
 	}
 
 	/**
