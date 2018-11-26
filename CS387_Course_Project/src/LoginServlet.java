@@ -17,18 +17,27 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String LOGIN_FORM = "<html><body>"
-			+ "			<form id=\"loginform\" method=\"post\">"
-			+ "        	ID: <input type=\"text\" name=\"userid\"> <br><br>"
-			+ "        	Password: <input type=\"password\" name=\"password\"> <br><br>"
-			+ "			<input type=\"radio\" name=\"role\" value=\"patient\" checked> Patient<br>\r\n"
-			+ "  		<input type=\"radio\" name=\"role\" value=\"doctor\"> Doctor<br>"
-			+ "        	<input type=\"submit\" value=\"Login\" action = 'LoginServlet' >"
-			+ " 		</form>"	
-			+ "			Signup<br>"
-			+ "			<a href=\"PatientSignup\">Patient</a><br>"
-			+ "			<a href=\"DoctorSignup\">Doctor</a>"
-			+ "			</body></html>";
+//	private static final String LOGIN_FORM = "<html><body>"
+//			+ "			<form id=\"loginform\" method=\"post\">"
+//			+ "        	ID: <input type=\"text\" name=\"userid\"> <br><br>"
+//			+ "        	Password: <input type=\"password\" name=\"password\"> <br><br>"
+//			+ "			<input type=\"radio\" name=\"role\" value=\"patient\" checked> Patient<br>\r\n"
+//			+ "  		<input type=\"radio\" name=\"role\" value=\"doctor\"> Doctor<br>"
+//			+ "        	<input type=\"submit\" value=\"Login\" action = 'LoginServlet' >"
+//			+ " 		</form>"	
+//			+ "			Signup?<br>"
+//			+ "			<a href=\"PatientSignup\">Patient</a><br>"
+//			+ "			<a href=\"DoctorSignup\">Doctor</a>"
+//			+ "			</body></html>";
+	
+	private static final String LOGIN_FORM = "<html><head><title>Login Form</title>" + 
+			"<script src=\"jquery-3.3.1.js\"> </script>" + 
+			"<script src=\"jquery.dataTables.min.js\"></script>" + 
+			"<script src=\"jquery-ui.min.js\"></script>" + 
+			"<script src=\"LoginForm.js\"></script>" +
+			"</head>" + 
+			"<body><script>loadHome()</script></body>" +
+			"</html>";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,6 +69,8 @@ public class LoginServlet extends HttpServlet {
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 		String role = request.getParameter("role");
+//		System.out.println("debug");
+//		System.out.println(userid + " " + password + " " + role);
 
 		if(role.equals("patient")) {
 			String query = "select passwd from users, patients where patients.patient_id = ?";
