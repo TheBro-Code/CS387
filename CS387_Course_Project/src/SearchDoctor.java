@@ -40,11 +40,23 @@ public class SearchDoctor extends HttpServlet {
 		
 		String DoctorSearchQuery;
 		String json;
-		
-		if(hospital.isEmpty() && address.isEmpty() && qualifications.isEmpty())
+		if(name.isEmpty() && hospital.isEmpty() && address.isEmpty() && qualifications.isEmpty()) {
+			DoctorSearchQuery = 
+					"select doctor_id,name,hospital,hospital_address,qualifications "
+				+	"from doctors,users "
+				+	"where doctors.doctor_id = users.userid";
+			
+			json = DbHelper.executeQueryJson(DoctorSearchQuery, 
+					new DbHelper.ParamType[] {}, 
+					new String[] {});
+			
+			System.out.println(json);
+			response.getWriter().print(json);
+		}
+		else if(hospital.isEmpty() && address.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ?";
 			
@@ -58,7 +70,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && address.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital = ?;";
 			
@@ -70,7 +82,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && hospital.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ?;";
 			
@@ -82,7 +94,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && hospital.isEmpty() && address.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ?;";
 			
@@ -94,7 +106,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && hospital.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and qualifications = ?;";
 			
@@ -107,7 +119,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty()  && address.isEmpty() )
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital = ? and qualifications = ?;";
 			
@@ -120,7 +132,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ?;";
 			
@@ -133,7 +145,7 @@ public class SearchDoctor extends HttpServlet {
 		else if( hospital.isEmpty() && address.isEmpty() )
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and qualifications = ?;";
 			
@@ -146,7 +158,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(hospital.isEmpty()  && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and hospital_address = ?;";
 			
@@ -159,7 +171,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(address.isEmpty() && qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and hospital = ?;";
 			
@@ -172,7 +184,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(name.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ? and qualifications = ?;";
 			
@@ -186,7 +198,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(hospital.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and name = ? and qualifications = ?;";
 			
@@ -200,7 +212,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(address.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and name = ? and hospital = ? and qualifications = ?;";
 			
@@ -214,7 +226,7 @@ public class SearchDoctor extends HttpServlet {
 		else if(qualifications.isEmpty())
 		{
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ? and name = ?;";
 			
@@ -227,8 +239,9 @@ public class SearchDoctor extends HttpServlet {
 		}
 		else
 		{
+			
 			DoctorSearchQuery = 
-					"select name,hospital,hospital_address,qualifications "
+					"select doctor_id,name,hospital,hospital_address,qualifications "
 				+	"from doctors,users "
 				+	"where doctors.doctor_id = users.userid and hospital_address = ? and hospital = ? and qualifications = ? and name = ?;";
 		

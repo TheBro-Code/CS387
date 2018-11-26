@@ -65,6 +65,8 @@ public class Treatments extends HttpServlet {
 			res = DbHelper.executeQueryJson(query, 
 					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 					new String[] {userid});
+			
+			System.out.println(res);
 		}
 		
 		else {
