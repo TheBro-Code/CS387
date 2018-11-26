@@ -35,6 +35,11 @@
 	color: #1e90ff;
 }
 
+#errortext {
+	color: FF0000;
+}
+
+
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;

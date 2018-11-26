@@ -11,6 +11,7 @@
 <body bgcolor = "DodgerBlue">
 	<div class="login-page">
 	  <div class="form">
+	  	<div id="errortext">Incorrect UserId/Password</div>
 	    <form class="login-form" method = "post">
 	      <label><b>User ID</b></label>
 	      <input type="text" name="userid" placeholder="userid"/>
@@ -21,7 +22,9 @@
 	      <label><b>Doctor</b></label>
   		  <input type="radio" name="role" value="doctor"> 
 	      <button>login</button>
-	      <p class="message">Not registered? <a href="PatientSignup">Create an account</a></p>
+	      <p class="message">Not registered? Create an account<br>
+	      <a href="PatientSignup">Patient</a><br>
+	      <a href="DoctorSignup">doctor</a></p>
 	    </form>
 	  </div>
 	</div>

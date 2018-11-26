@@ -6,7 +6,9 @@ function loadHome() {
 	xhr.onreadystatechange = function(){
 		if(this.readyState!==4) return;
 		if(this.status!==200) return;
-		$('html').html(this.responseText);
+		var newDoc = document.open("text/html", "replace");
+		newDoc.write(this.responseText);
+		newDoc.close();
 	}
 	xhr.send();
 }
@@ -17,7 +19,9 @@ function loadHomeError() {
 	xhr.onreadystatechange = function(){
 		if(this.readyState!==4) return;
 		if(this.status!==200) return;
-		$('html').html(this.responseText);
+		var newDoc = document.open("text/html", "replace");
+		newDoc.write(this.responseText);
+		newDoc.close();
 		$("#errortext").text("UserId/Phone No already taken");
 	}
 	xhr.send();
