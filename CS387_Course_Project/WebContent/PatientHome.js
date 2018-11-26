@@ -34,7 +34,7 @@ function loadHome()
 	  		});
   
   $('#trt_table tbody').on( 'click', 'tr', function () {
-	 loadTreatmentDetail(ongoingTreat.row(this).data()["treatment_id"],"true");
+	 loadTreatmentDetail(ongoingTreat.row(this).data()["treatment_id"], ongoingTreat.row(this).data()["doctor_id"], "true");
   });
   
   $("#hide_order").html(init_bar).promise().done(function(){
@@ -162,13 +162,14 @@ function treatment_history()
 
 
 
-function loadTreatmentDetail(treatment_id,current)
+function loadTreatmentDetail(treatment_id, doctor_id, current)
 {
 	TreatmentDetail = "<table id=\"trt_detail_table\" class=\"display\">"
 	      + " <thead>" 
 	      + " <tr> <th>APPOINTMENT ID</th> <th>SCHEDULED TIME</th> </tr>"
 	      + " </thead>"
-	      + " </table>";
+	      + " </table>"
+	      + "<button id=\"chat_patient\" onclick=\"loadchatdetails(" + doctor_id + ")\">Chat with Doctor</button>"
 	  var listAppointments;
 	  $("#content").html(TreatmentDetail).promise().done(function()
 		  		{
@@ -181,8 +182,7 @@ function loadTreatmentDetail(treatment_id,current)
 									treatment_id: treatment_id
 								}
 							}
-					  });
-			        
+					  });			       
 		  		});
 	  
 	  $('#trt_detail_table tbody').on( 'click', 'tr', function () {
@@ -654,4 +654,71 @@ function dec(id)
 }
 
 
-
+function loadchatdetails(other_id)
+{
+	
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+       if (this.readyState == 4 && this.status == 200)
+       {
+        	var myTable = "<table style=\"background-repeat:no-repeat; width:100%;margin:0;\" text-align: center; cellpadding=\"5\" cellspacing=\"7\" border=\"3\">";
+        	myTable += "<tr>";
+        	myTable += "<th> post_id </th>";
+        	myTable += "<th> thread_id </th>";
+        	myTable += "<th> uid </th>";
+        	myTable += "<th> timestamp </th>";
+        	myTable += "<th> text </th></tr>";
+        	
+        	var obj = JSON.parse(this.responseText);
+        	
+    		for(var i=0;i<obj.data.length;i++){
+    			myTable += "<tr>";
+            	myTable += "<td>" + obj.data[i].post_id + "</td>";
+            	myTable += "<td>" + obj.data[i].thread_id + "</td>";
+            	myTable += "<td>" + obj.data[i].uid + "</td>";
+            	myTable += "<td>" + obj.data[i].timestamp + "</td>";
+            	myTable += "<td>" + obj.data[i].text + "</td>";
+            	myTable += "</tr>";
+    		}
+    		
+    		myTable += "</table> <br> <br>";
+    		
+    		myTable += ""
+//				+ "Enter uid:     <input type=\"text\" id = \"other_id\"> "
+				+ "Enter message: <input type=\"text\" id = \"msg\"> "
+				+ "<button id = \"Submit\">Submit </button>"
+				+ "";
+    		
+    		document.getElementById("content").innerHTML = myTable;
+    		$("#content").html(myTable).promise().done(function(){
+    			$('#Submit').on("click",function () {
+//    				  var uid = $("#other_id").val();
+    				  var msg = $("#msg").val();
+    				  var xhttp1 = new XMLHttpRequest();
+    				  xhttp1.onreadystatechange = function() {
+    				  	if (this.readyState == 4 && this.status == 200) {
+    				  		var str = this.responseText;
+    				  		var json_object = JSON.parse(str);
+    				  		if(str.indexOf("true") < 0 || json_object.status == false)
+    				  		{
+    				  			alert(json_object.message);
+    				  		}
+    				  		else
+    				  		{
+    				  			loadchatdetails(other_id);
+    				  		}
+    				  	}
+    				  	else{
+    				  	}
+    				  };
+    				  xhttp1.open("GET", "NewMessage?other_id=" + other_id + "&msg=" + msg, true);
+  				      xhttp1.send();
+    			  });
+    		});
+       }
+       else{
+       }
+    };
+    xhttp.open("GET", "ConversationDetail?other_id=" + other_id, true);
+    xhttp.send();
+}

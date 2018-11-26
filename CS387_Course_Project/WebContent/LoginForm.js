@@ -5,13 +5,26 @@ function loadHome() {
 	xhr.onreadystatechange = function(){
 		if(this.readyState!==4) return;
 		if(this.status!==200) return;
-//		console.log($('html'));	
-//		console.log(this.responseText);
-//		$('html').html(this.responseText);
 		var newDoc = document.open("text/html", "replace");
 		newDoc.write(this.responseText);
 		newDoc.close();
-//		console.log($('html').html());
 	}
+	xhr.send();
+}
+
+function loadHomeError() {
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(this.readyState!==4) return;
+		if(this.status!==200) return;
+		var newDoc = document.open("text/html", "replace");
+		newDoc.write(this.responseText);
+		newDoc.close();
+		$("#errortext").text("Incorrect UserID/Password");
+		console.log($('#errortext').text());
+		
+	}
+	xhr.open('GET','LoginForm.html',true)
 	xhr.send();
 }

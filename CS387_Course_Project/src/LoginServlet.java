@@ -16,28 +16,74 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-//	private static final String LOGIN_FORM = "<html><body>"
-//			+ "			<form id=\"loginform\" method=\"post\">"
-//			+ "        	ID: <input type=\"text\" name=\"userid\"> <br><br>"
-//			+ "        	Password: <input type=\"password\" name=\"password\"> <br><br>"
-//			+ "			<input type=\"radio\" name=\"role\" value=\"patient\" checked> Patient<br>\r\n"
-//			+ "  		<input type=\"radio\" name=\"role\" value=\"doctor\"> Doctor<br>"
-//			+ "        	<input type=\"submit\" value=\"Login\" action = 'LoginServlet' >"
-//			+ " 		</form>"	
-//			+ "			Signup?<br>"
-//			+ "			<a href=\"PatientSignup\">Patient</a><br>"
-//			+ "			<a href=\"DoctorSignup\">Doctor</a>"
-//			+ "			</body></html>";
 	
-	private static final String LOGIN_FORM = "<html><head><title>Login Form</title>" + 
-			"<script src=\"jquery-3.3.1.js\"> </script>" + 
-			"<script src=\"jquery.dataTables.min.js\"></script>" + 
-			"<script src=\"jquery-ui.min.js\"></script>" + 
-			"<script src=\"LoginForm.js\"></script>" +
-			"</head>" + 
-			"<body><script>loadHome()</script></body>" +
-			"</html>";
+	private static final String LOGIN_FORM = "<html>\r\n" + 
+			"<head>\r\n" + 
+			"	<title>Login Form</title>\r\n" + 
+			"	<link rel=\"stylesheet\" type=\"text/css\" href=\"LoginForm.css\">\r\n" + 
+			"	<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\r\n" + 
+			"	<script src=\"jquery-3.3.1.js\"> </script>\r\n" + 
+			"	<script src=\"jquery.dataTables.min.js\"></script>\r\n" + 
+			"	<script src=\"jquery-ui.min.js\"></script>\r\n" + 
+			"	<script src=\"LoginForm.js\"></script>\r\n" + 
+			"</head>\r\n" + 
+			"<body bgcolor = \"DodgerBlue\">\r\n" + 
+			"	<div class=\"login-page\">\r\n" + 
+			"	  <div class=\"form\">\r\n" + 
+			"	    <form class=\"login-form\" method = \"post\">\r\n" + 
+			"	      <label><b>User ID</b></label>\r\n" + 
+			"	      <input type=\"text\" name=\"userid\" placeholder=\"userid\"/>\r\n" + 
+			"	      <label><b>Password</b></label>\r\n" + 
+			"	      <input type=\"password\" name = \"password\" placeholder=\"password\"/>\r\n" + 
+			"	      <label><b>Patient</b></label>\r\n" + 
+			"	      <input type=\"radio\" name=\"role\" value=\"patient\" checked><br>\r\n" + 
+			"	      <label><b>Doctor</b></label>\r\n" + 
+			"  		  <input type=\"radio\" name=\"role\" value=\"doctor\"> \r\n" + 
+			"	      <button>login</button>\r\n" + 
+			"	      <p class=\"message\">Not registered? Create an account<br>\r\n" + 
+			"	      <a href=\"PatientSignup\">Patient</a><br>\r\n" + 
+			"	      <a href=\"DoctorSignup\">Doctor</a></p>\r\n" + 
+			"	    </form>\r\n" + 
+			"	  </div>\r\n" + 
+			"	</div>\r\n" + 
+			"</body>\r\n" + 
+			"</html>\r\n" + 
+			"\r\n";
+	
+	
+	private static final String LOGIN_FORM_ERROR = "<html>\r\n" + 
+			"<head>\r\n" + 
+			"	<title>Login Form</title>\r\n" + 
+			"	<link rel=\"stylesheet\" type=\"text/css\" href=\"LoginForm.css\">\r\n" + 
+			"	<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\r\n" + 
+			"	<script src=\"jquery-3.3.1.js\"> </script>\r\n" + 
+			"	<script src=\"jquery.dataTables.min.js\"></script>\r\n" + 
+			"	<script src=\"jquery-ui.min.js\"></script>\r\n" + 
+			"	<script src=\"LoginForm.js\"></script>\r\n" + 
+			"</head>\r\n" + 
+			"<body bgcolor = \"DodgerBlue\">\r\n" + 
+			"	<div class=\"login-page\">\r\n" + 
+			"	  <div class=\"form\">\r\n" + 
+			"	  	<div id=\"errortext\">Incorrect UserId/Password</div>\r\n" + 
+			"	    <form class=\"login-form\" method = \"post\">\r\n" + 
+			"	      <label><b>User ID</b></label>\r\n" + 
+			"	      <input type=\"text\" name=\"userid\" placeholder=\"userid\"/>\r\n" + 
+			"	      <label><b>Password</b></label>\r\n" + 
+			"	      <input type=\"password\" name = \"password\" placeholder=\"password\"/>\r\n" + 
+			"	      <label><b>Patient</b></label>\r\n" + 
+			"	      <input type=\"radio\" name=\"role\" value=\"patient\" checked><br>\r\n" + 
+			"	      <label><b>Doctor</b></label>\r\n" + 
+			"  		  <input type=\"radio\" name=\"role\" value=\"doctor\"> \r\n" + 
+			"	      <button>login</button>\r\n" + 
+			"	      <p class=\"message\">Not registered? Create an account<br>\r\n" + 
+			"	      <a href=\"PatientSignup\">Patient</a><br>\r\n" + 
+			"	      <a href=\"DoctorSignup\">Doctor</a></p>\r\n" + 
+			"	    </form>\r\n" + 
+			"	  </div>\r\n" + 
+			"	</div>\r\n" + 
+			"</body>\r\n" + 
+			"</html>\r\n" + 
+			"\r\n";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -86,8 +132,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			else {
 				response.setContentType("text/html");
-				response.getWriter().print("<p><b>Auth failed. Try again</b></p>");
-				response.getWriter().print(LOGIN_FORM);
+				response.getWriter().print(LOGIN_FORM_ERROR);
 			}
 		}
 		else {
@@ -104,8 +149,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			else {
 				response.setContentType("text/html");
-				response.getWriter().print("<p><b>Auth failed. Try again</b></p>");
-				response.getWriter().print(LOGIN_FORM);
+				response.getWriter().print(LOGIN_FORM_ERROR);
 			}
 		}
 		

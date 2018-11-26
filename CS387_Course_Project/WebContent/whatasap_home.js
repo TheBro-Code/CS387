@@ -147,7 +147,6 @@ function loadConversationDetail(other_id)
 }
 
 
-
 function createConversation(other_id)
 {
 	var xhttp = new XMLHttpRequest();
