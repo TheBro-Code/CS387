@@ -114,17 +114,19 @@ public class profile extends HttpServlet {
 			System.out.println(blood_type);
 			System.out.println(passwd);
 			System.out.println(house_no);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			System.out.println(newname);
-			
+			System.out.println(street);
+			System.out.println(state);
+			System.out.println(pin_code);
+			System.out.println(phone_no);
+			System.out.println(blood_pressure);
+			System.out.println(blood_sugar);
+			System.out.println(cardiac_ailment);
+			System.out.println(asthma);
+			System.out.println(allergies);
+			System.out.println(chronic_diseases);
+			System.out.println(major_surgeries);
+			System.out.println(long_term_med);
+			System.out.println(transf_hist);
 			
 			String query1 = "";
 			String query2 = "";
