@@ -51,11 +51,8 @@ public class PatientHome extends HttpServlet {
 				"<body>" +
 				
 				"<button onclick=\"loadHome()\"> Home </button><br><br>" +
-				"Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
-				"Hospital : <input type=\"text\" id = \"hospital\" name = \"hospital\"> " +
-				"Locality : <input type=\"text\" id = \"locality\" name = \"locality\"> " +
-				"Qualifications : <input type=\"text\" id = \"qualifications\" name = \"qualifications\"> " +
-		        "<button id=\"search_doc\"> Submit </button> <br> <br>" +
+				"<div id = \"hide_order\">" +
+				"</div>" +
 				"<button id=\"patient_profile\" onclick=\"loadProfile()\"> View/Update Profile</button>" +
 				"<br> <br>" +
 				"<div id=\"dummy\"></div>" +
