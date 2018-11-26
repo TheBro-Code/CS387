@@ -341,7 +341,7 @@ function loadProfile()
   		+  "<div id = \"blood_pressure\"> </div>"
   		+  "<div id = \"blood_sugar\"> </div>"
   		+  "<div id = \"cardiac_ailment\"> </div>"
-  		+ "<div id = \"asthma\"> </div>"
+  		+  "<div id = \"asthma\"> </div>"
   		+  "<div id = \"allergies\"> </div>"
   		+  "<div id = \"chronic_diseases\"> </div>"
   		+  "<div id = \"major_surgeries\"> </div>"
@@ -391,7 +391,7 @@ function loadProfile()
 
 function update_profile()
 {
-	profile_Det = " Name: <input type=\"text\" id = \"name1\"> <br></input>" +
+	profile_Det = " Name: <input type=\"text\" id = \"newname\"> <br></input>" +
 	"Gender: </input><input type=\"text\" id = \"gender\"> <br>"  +
 	"Blood type: </input><input type=\"text\" id = \"blood_type\" > <br>" +
 	"Age: </input><input type=\"text\" id = \"age\" > <br>" +
@@ -411,7 +411,7 @@ function update_profile()
 	"Major surgeries: </input><input type=\"text\" id = \"major_surgeries\" > <br>" +
 	"Long term medication: </input><input type=\"text\" id = \"long_term_med\" > <br>" +
 	"Transfusion history: </input><input type=\"text\" id = \"transf_hist\" > <br>" +
-	"<button id=\"submit_but\"> Submit </button>";
+	"<button id=\"submit_but\" onclick = exec_update()> Submit </button>";
 	
 	var listAppointments;
 	var obj;
@@ -422,7 +422,7 @@ function update_profile()
 	   if (this.readyState == 4 && this.status == 200)
 	   {
 	    	obj = JSON.parse(this.responseText);
-	    	document.getElementById("name1").value =obj.data[0].name;
+	    	document.getElementById("newname").value =obj.data[0].name;
 	    	document.getElementById("gender").value =obj.data[0].gender;
 	    	document.getElementById("age").value =obj.data[0].age;
 	    	document.getElementById("blood_type").value =obj.data[0].blood_type;
@@ -450,5 +450,67 @@ function update_profile()
 	xhttp.open("GET", "profile", true);
 	xhttp.send();
 	});
+	
+}
+
+function exec_update()
+{
+	
+	newname = document.getElementById("newname").value ; 
+	gender = document.getElementById("gender").value  ;
+	age = document.getElementById("age").value ;
+	blood_type = document.getElementById("blood_type").value ;  
+	patient_id = document.getElementById("patient_id").value ; 
+	passwd = document.getElementById("passwd").value ;
+	house_no = document.getElementById("house_no").value ;  
+	street = document.getElementById("street").value ;
+	state = document.getElementById("state").value ;
+	pin_code = document.getElementById("pin_code").value ;  
+	phone = document.getElementById("phone_no").value ;
+	blood_pressure = document.getElementById("blood_pressure").value ; 
+	blood_sugar = document.getElementById("blood_sugar").value ;
+	cardiac_ailment = document.getElementById("cardiac_ailment").value ;  
+	asthma = document.getElementById("asthma").value ;
+	allergies = document.getElementById("allergies").value ;
+	chronic_diseases = document.getElementById("chronic_diseases").value ;
+	major_surgeries = document.getElementById("major_surgeries").value ;
+	long_term_med = document.getElementById("long_term_med").value ;
+	transf_hist = document.getElementById("transf_hist").value ;
+	
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	   if (this.readyState == 4 && this.status == 200)
+	   {
+		   loadProfile();
+	   }
+	   else{
+		   
+	   }
+	};
+	xhttp.open("GET", 
+			"profile?update=" + "yes" +
+			"&newname=" + newname +
+			"&gender=" + gender +
+			"&age=" + age + 
+			"&blood_type=" + blood_type + 
+//			"&patient_id=" + patient_id + 
+			"&passwd=" + passwd + 
+			"&house_no=" + house_no +
+			"&street=" + street + 
+			"&state=" + state +
+			"&pin_code=" + pin_code + 
+			"&phone=" + phone + 
+			"&blood_pressure=" + blood_pressure + 
+			"&cardiac_ailment=" + cardiac_ailment + 
+			"&asthma=" + asthma + 
+			"&allergies=" + allergies + 
+			"&chronic_diseases=" + chronic_diseases + 
+			"&major_surgeries=" + major_surgeries + 
+			"&long_term_med=" + long_term_med + 
+			"&transf_hist=" + transf_hist
+			, true);
+	xhttp.send();
+	
 	
 }

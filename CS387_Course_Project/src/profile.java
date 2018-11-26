@@ -87,7 +87,123 @@ public class profile extends HttpServlet {
 		}
 		
 		else {
+			
+			String newname = request.getParameter("newname");
+			String gender = request.getParameter("gender");
+			String age = request.getParameter("age");
+			String blood_type = request.getParameter("blood_type");
+			String passwd = request.getParameter("passwd");
+			String house_no = request.getParameter("house_no");
+			String street = request.getParameter("street");
+			String state = request.getParameter("state");
+			String pin_code = request.getParameter("pin_code");
+			String phone_no = request.getParameter("phone_no");
+			String blood_pressure = request.getParameter("blood_pressure");
+			String blood_sugar = request.getParameter("blood_sugar");
+			String cardiac_ailment = request.getParameter("cardiac_ailment");
+			String asthma = request.getParameter("asthma");
+			String allergies = request.getParameter("allergies");
+			String chronic_diseases = request.getParameter("chronic_diseases");
+			String major_surgeries = request.getParameter("major_surgeries");
+			String long_term_med = request.getParameter("long_term_med");
+			String transf_hist = request.getParameter("transf_hist");
+			
+			System.out.println(newname);
+			System.out.println(gender);
+			System.out.println(age);
+			System.out.println(blood_type);
+			System.out.println(passwd);
+			System.out.println(house_no);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			System.out.println(newname);
+			
+			
+			String query1 = "";
+			String query2 = "";
+			
+			if(role.equals("patient")) 
+			{
+				query1 = " update users set (name,"
+						+ "gender, "
+						+ "age, "
+//						+ "blood_type,"
+						+ "passwd, "
+						+ "house_no, "
+						+ "street, "
+						+ "state, "
+//						+ "pin_code, "
+						+ "phone_no) = (?,?,?,?,?,?,?,?) "
+						+ "where userid = ?;";
 				
+				String res1 = DbHelper.executeUpdateJson(query1, 
+						new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING}, 
+						new String[] {newname, 
+									  gender, 
+									  age,
+//									  blood_type, 
+									  passwd, 
+									  house_no,
+									  street,
+									  state,
+//									  pin_code,
+									  phone_no,
+								      userid});
+				
+//				query2 = "update patients set (blood_pressure,"
+//						+ "blood_sugar, "
+//						+ "cardiac_ailment, "
+//						+ "asthma, "
+//						+ "allergies, "
+//						+ "chronic_diseases, "
+//						+ "major_surgeries, "
+//						+ "long_term_med, "
+//						+ "trans_hist) = (?,?,?,?,?,?,?,?,?) "
+//						+ "where patient_id = ?";
+//				
+//				
+//				String res2 = DbHelper.executeUpdateJson(query2, 
+//						new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING,
+//								DbHelper.ParamType.STRING}, 
+//						new String[] {blood_pressure,
+//								      blood_sugar,
+//								      cardiac_ailment,
+//								      asthma,allergies,
+//								      chronic_diseases,
+//								      major_surgeries,
+//								      long_term_med,
+//								      transf_hist,
+//								      userid});
+			}
+			else 
+			{
+				
+			}
 			}
 			
 			PrintWriter out = response.getWriter();
