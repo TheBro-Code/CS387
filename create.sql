@@ -120,7 +120,7 @@ create table conversations(
 create table posts (
     post_id serial primary key,
     thread_id integer references conversations(thread_id),
-    user_id varchar(20) references users,
+    userid varchar(20) references users,
     timestamp timestamp,
     text varchar(256)
 );

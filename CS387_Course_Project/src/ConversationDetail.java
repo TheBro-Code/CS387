@@ -28,25 +28,39 @@ public class ConversationDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) { //not logged in
+		if(session.getAttribute("userid") == null) { //not logged in
 			response.sendRedirect("LoginServlet");
 		}
-		String id = (String) session.getAttribute("id");
+		String userid = (String) session.getAttribute("userid");
+		String role = (String) session.getAttribute("role");
 		String other_id = request.getParameter("other_id");
 		
-		String messagesQuery = "select p.* "
-				+ "from posts p, conversations c "
-				+ "where p.thread_id = c.thread_id "
-				+ "and ((c.uid1 = ? and c.uid2 = ?) or "
-				+ "		(c.uid2 = ? and c.uid1 = ?)) "
-				+ "order by p.timestamp desc";
-		String json = DbHelper.executeQueryJson(messagesQuery, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
-						DbHelper.ParamType.STRING,
-						DbHelper.ParamType.STRING,
-						DbHelper.ParamType.STRING}, 
-				new String[] {id, other_id, id, other_id});
+		String messagesQuery = "";
+		String json = "";
+		if (role.equals("patient")) {
+			messagesQuery = "select p.* "
+					+ "from posts p, conversations c "
+					+ "where p.thread_id = c.thread_id "
+					+ "and (c.patient_id = ? and c.doctor_id = ?) "
+					+ "order by p.timestamp desc";
+			json = DbHelper.executeQueryJson(messagesQuery, 
+					new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
+							DbHelper.ParamType.STRING}, 
+					new String[] {userid, other_id});
+		}
+		else {
+			messagesQuery = "select p.* "
+					+ "from posts p, conversations c "
+					+ "where p.thread_id = c.thread_id "
+					+ "and (c.patient_id = ? and c.doctor_id = ?) "
+					+ "order by p.timestamp desc";
+			json = DbHelper.executeQueryJson(messagesQuery, 
+					new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
+							DbHelper.ParamType.STRING}, 
+					new String[] {other_id, userid});
+		}
 		response.getWriter().print(json);
+		
 	}
 
 	/**

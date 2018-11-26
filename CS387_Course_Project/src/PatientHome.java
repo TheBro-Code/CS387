@@ -28,7 +28,7 @@ public class PatientHome extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		if(session.getAttribute("userid") == null) { //not logged in
 			response.sendRedirect("LoginServlet");
 		}
@@ -51,6 +51,10 @@ public class PatientHome extends HttpServlet {
 				"<body>" +
 				
 				"<button onclick=\"loadHome()\"> Home </button><br><br>" +
+				"<button id=\"order_medicines\" onclick=\"order_medicines()\"> Order </button>" +
+				"<button id=\"treatment_history\" onclick=\"treatment_history()\"> Treatment History </button>" +
+				"<button id=\"your_orders\" onclick=\"your_orders()\"> Your Orders </button>" +
+				"<form action=\"LogoutServlet\"> <input type=\"submit\" value=\"Logout\"> </form>" +
 				"Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
 				"Hospital : <input type=\"text\" id = \"hospital\" name = \"hospital\"> " +
 				"Locality : <input type=\"text\" id = \"locality\" name = \"locality\"> " +
@@ -61,10 +65,6 @@ public class PatientHome extends HttpServlet {
 				"<div id=\"dummy\"></div>" +
 				"<div id=\"content\"> </div>" +
 				"<br><br>" +
-				"<button id=\"order_medicines\" onclick=\"order_medicines()\"> Order </button>" +
-				"<button id=\"treatment_history\" onclick=\"treatment_history()\"> Treatment History </button>" +
-				"<button id=\"your_orders\" onclick=\"your_orders()\"> Your Orders </button>" +
-				"<form action=\"LogoutServlet\"> <input type=\"submit\" value=\"Logout\"> </form>" +
 				"</body>" +
 				"</html>";
 		response.setContentType("text/html");
