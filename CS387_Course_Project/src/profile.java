@@ -136,13 +136,13 @@ public class profile extends HttpServlet {
 				query1 = " update users set (name,"
 						+ "gender, "
 						+ "age, "
-//						+ "blood_type,"
+						+ "blood_type,"
 						+ "passwd, "
 						+ "house_no, "
 						+ "street, "
 						+ "state, "
-//						+ "pin_code, "
-						+ "phone_no) = (?,?,?,?,?,?,?,?) "
+						+ "pin_code, "
+						+ "phone_no) = (?,?,?,?,?,?,?,?,?,?) "
 						+ "where userid = ?;";
 				
 				String res1 = DbHelper.executeUpdateJson(query1, 
@@ -153,54 +153,55 @@ public class profile extends HttpServlet {
 								DbHelper.ParamType.STRING,
 								DbHelper.ParamType.STRING,
 								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
 								DbHelper.ParamType.STRING,
 								DbHelper.ParamType.STRING}, 
 						new String[] {newname, 
 									  gender, 
 									  age,
-//									  blood_type, 
+									  blood_type, 
 									  passwd, 
 									  house_no,
 									  street,
 									  state,
-//									  pin_code,
+									  pin_code,
 									  phone_no,
 								      userid});
 				
-//				query2 = "update patients set (blood_pressure,"
-//						+ "blood_sugar, "
-//						+ "cardiac_ailment, "
-//						+ "asthma, "
-//						+ "allergies, "
-//						+ "chronic_diseases, "
-//						+ "major_surgeries, "
-//						+ "long_term_med, "
-//						+ "trans_hist) = (?,?,?,?,?,?,?,?,?) "
-//						+ "where patient_id = ?";
-//				
-//				
-//				String res2 = DbHelper.executeUpdateJson(query2, 
-//						new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING,
-//								DbHelper.ParamType.STRING}, 
-//						new String[] {blood_pressure,
-//								      blood_sugar,
-//								      cardiac_ailment,
-//								      asthma,allergies,
-//								      chronic_diseases,
-//								      major_surgeries,
-//								      long_term_med,
-//								      transf_hist,
-//								      userid});
+				query2 = "update patients set (blood_pressure, "
+						+ "blood_sugar, "
+						+ "cardiac_ailment, "
+						+ "asthma, "
+						+ "allergies, "
+						+ "chronic_diseases, "
+						+ "major_surgeries, "
+						+ "long_term_med, "
+						+ "transf_hist) = (?,?,?,?,?,?,?,?,?) "
+						+ "where patient_id = ?";
+				
+				
+				String res2 = DbHelper.executeUpdateJson(query2, 
+						new DbHelper.ParamType[] {DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING,
+								DbHelper.ParamType.STRING}, 
+						new String[] {blood_pressure,
+								      blood_sugar,
+								      cardiac_ailment,
+								      asthma,
+								      allergies,
+								      chronic_diseases,
+								      major_surgeries,
+								      long_term_med,
+								      transf_hist,
+								      userid});
 			}
 			else 
 			{

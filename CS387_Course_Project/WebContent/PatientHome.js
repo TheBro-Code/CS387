@@ -500,8 +500,9 @@ function exec_update()
 			"&street=" + street + 
 			"&state=" + state +
 			"&pin_code=" + pin_code + 
-			"&phone=" + phone + 
+			"&phone_no=" + phone + 
 			"&blood_pressure=" + blood_pressure + 
+			"&blood_sugar=" + blood_sugar +
 			"&cardiac_ailment=" + cardiac_ailment + 
 			"&asthma=" + asthma + 
 			"&allergies=" + allergies + 
