@@ -57,7 +57,7 @@ public class Treatments extends HttpServlet {
 						+ "WHERE doctor_id = ? AND end_time IS NOT NULL";	
 			}
 			else {
-				query = "SELECT treatment_id, doctor_id,start_time,end_time "
+				query = "SELECT treatment_id, patient_id,start_time,end_time "
 						+ "FROM treatment "
 						+ "WHERE patient_id = ? AND end_time IS NOT NULL";
 			}
@@ -66,7 +66,8 @@ public class Treatments extends HttpServlet {
 					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 					new String[] {userid});
 			
-			System.out.println(res);
+			PrintWriter out = response.getWriter();
+			out.print(res);
 		}
 		
 		else {

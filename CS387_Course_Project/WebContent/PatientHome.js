@@ -124,31 +124,32 @@ function loadHome()
 
 function treatment_history()
 {
-	Treatments = "<table id=\"trt_history_table\" class=\"display\">"
-	      + " <thead>" 
-	      + " <tr> <th>TREATMENT ID</th> <th>DOCTOR_ID</th> <th>START TIME</th> <th>`NEXT APPOINTMENT</th> </tr>"  
-	      + " </thead>"
-	      + " </table>";
-
-	var ongoingTreat;
-	$("#content").html(Treatments).promise().done(function()
-		  		{
-					  ongoingTreat = $("#trt_history_table").DataTable({
-					      columns: [{data:"treatment_id"}, {data:"doctor_id"}, {data:"start_time"}, {data:"next_appointment"}],
-						  ajax : {
-								url: "Treatments",
-								data: {
-									resolved: "true"
-								}
+	
+  Treatments = "<table id=\"trt_table\" class=\"display\">"
+      + " <thead>" 
+      + " <tr> <th>TREATMENT ID</th> <th>DOCTOR_ID</th> <th>START TIME</th> <th>END TIME</th> </tr>"  
+      + " </thead>"
+      + " </table>";
+  
+  var Treathist;
+  $("#content").html(Treatments).promise().done(function()
+	  		{
+				  Treathist = $("#trt_table").DataTable({
+				      columns: [{data:"treatment_id"}, {data:"doctor_id"}, {data:"start_time"}, {data:"end_time"}],
+					  ajax : {
+							url: "Treatments",
+							data: {
+								resolved: "true"
 							}
-					  });
-			        
-		  		});
-	
-	
-	$('#trt_history_table tbody').on( 'click', 'tr', function () {
-		 loadTreatmentDetail(ongoingTreat.row(this).data()["treatment_id"],"false");
-	});
+						}
+				  });
+		        
+	  		});
+  
+  $('#trt_table tbody').on( 'click', 'tr', function () {
+	 loadTreatmentDetail(ongoingTreat.row(this).data()["treatment_id"],"true");
+  });
+  
 }
 
 

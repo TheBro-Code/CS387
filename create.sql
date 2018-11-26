@@ -168,7 +168,7 @@ insert into patients values ('210','80/120','100','Yes','No','None','None','None
 insert into patients values ('220','80/120','100','Yes','No','None','None','None','None','None');
 
 insert into treatment(treatment_id, patient_id, doctor_id) values ('1','130','123');
-insert into treatment(treatment_id, patient_id, doctor_id) values ('2','140','123');
+-- insert into treatment(treatment_id, patient_id, doctor_id) values ('2','140','123');
 insert into treatment(treatment_id, patient_id, doctor_id) values ('3','150','124');
 insert into treatment(treatment_id, patient_id, doctor_id) values ('4','160','125');
 insert into treatment(treatment_id, patient_id, doctor_id) values ('5','170','125');
@@ -181,9 +181,9 @@ insert into treatment(treatment_id, patient_id, doctor_id) values ('10','220','1
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('100','1','Stomach ache','2018-11-12 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('101','1','Head ache','2018-09-13 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('102','1','Heart ache','2018-09-14 15:09');
-insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('103','2','Heart break','2018-09-15 15:09');
-insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('104','2','Stomach ache','2018-09-16 15:09');
-insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('105','2','Stomach ache','2018-09-17 15:09');
+-- insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('103','2','Heart break','2018-09-15 15:09');
+-- insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('104','2','Stomach ache','2018-09-16 15:09');
+-- insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('105','2','Stomach ache','2018-09-17 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('106','3','Stomach ache','2018-09-18 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('107','4','Stomach ache','2018-09-19 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('108','5','Stomach ache','2018-09-12 15:09');
@@ -198,4 +198,4 @@ insert into prescription values ('100','300','3');
 insert into prescription values ('100','301','3');
 insert into prescription values ('101','302','3');
 insert into prescription values ('102','303','3');
-insert into prescription values ('103','303','3');
+-- insert into prescription values ('103','303','3');
