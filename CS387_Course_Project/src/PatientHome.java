@@ -51,6 +51,8 @@ public class PatientHome extends HttpServlet {
 				"<body>" +
 				
 				"<button onclick=\"loadHome()\"> Home </button><br><br>" +
+				"<div id = \"hide_order\">" +
+				"</div>" +
 				"<button id=\"order_medicines\" onclick=\"order_medicines()\"> Order </button>" +
 				"<button id=\"treatment_history\" onclick=\"treatment_history()\"> Treatment History </button>" +
 				"<button id=\"your_orders\" onclick=\"your_orders()\"> Your Orders </button>" +

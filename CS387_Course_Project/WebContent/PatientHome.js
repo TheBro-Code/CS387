@@ -12,7 +12,14 @@ function loadHome()
 	      + " </thead>"
 	      + " </table>";
   
+  init_bar = "Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
+			"Hospital : <input type=\"text\" id = \"hospital\" name = \"hospital\"> " +
+			"Locality : <input type=\"text\" id = \"locality\" name = \"locality\"> " +
+			"Qualifications : <input type=\"text\" id = \"qualifications\" name = \"qualifications\"> " +
+		    "<button id=\"search_doc\"> Submit </button> <br> <br>";
+  
   var ongoingTreat;
+  
   $("#content").html(Treatments).promise().done(function()
 	  		{
 				  ongoingTreat = $("#trt_table").DataTable({
@@ -23,102 +30,103 @@ function loadHome()
 								resolved: "false"
 							}
 						}
-				  });
-		        
+				  });			        
 	  		});
   
   $('#trt_table tbody').on( 'click', 'tr', function () {
 	 loadTreatmentDetail(ongoingTreat.row(this).data()["treatment_id"], ongoingTreat.row(this).data()["doctor_id"], "true");
   });
   
-  $("#name").autocomplete({
-      source: function( request, response ) {
-          $.ajax({
-            url: "AutoCompleteDoctor",
-            dataType: "json",
-            data: {
-              term: request.term,
-              input: "name" 
-            },
-            success: function( data ) {
-            	$("#dummy").html(data);
-              response( data );
-            }
-          });
-        },
-      select: function( event, ui ) {
-    	  $("#search_doc").off().on('click',function(){
-    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
-    	});
-     }
+  $("#hide_order").html(init_bar).promise().done(function(){
+	  $("#name").autocomplete({
+	      source: function( request, response ) {
+	          $.ajax({
+	            url: "AutoCompleteDoctor",
+	            dataType: "json",
+	            data: {
+	              term: request.term,
+	              input: "name" 
+	            },
+	            success: function( data ) {
+	            	$("#dummy").html(data);
+	              response( data );
+	            }
+	          });
+	        },
+	      select: function( event, ui ) {
+	    	  $("#search_doc").off().on('click',function(){
+	    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
+	    	});
+	     }
+	  });
+	  
+	  $("#hospital").autocomplete({
+	      source: function( request, response ) {
+	          $.ajax({
+	            url: "AutoCompleteDoctor",
+	            dataType: "json",
+	            data: {
+	              term: request.term,
+	              input: "hospital" 
+	            },
+	            success: function( data ) {
+	              response( data );
+	            }
+	          });
+	        },
+	      select: function( event, ui ) {
+	    	  $("#search_doc").off().on('click',function(){
+	    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
+	    	});
+	     }
+	  });
+	  
+	  $("#locality").autocomplete({
+	      source: function( request, response ) {
+	          $.ajax({
+	            url: "AutoCompleteDoctor",
+	            dataType: "json",
+	            data: {
+	              term: request.term,
+	              input: "locality" 
+	            },
+	            success: function( data ) {
+	            	$("#dummy").html(data);
+	              response( data );
+	            }
+	          });
+	        },
+	      select: function( event, ui ) {
+	    	  $("#search_doc").off().on('click',function(){
+	    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
+	    	});
+	     }
+	  });
+	  
+	  $("#qualifications").autocomplete({
+	      source: function( request, response ) {
+	          $.ajax({
+	            url: "AutoCompleteDoctor",
+	            dataType: "json",
+	            data: {
+	              term: request.term,
+	              input: "qualifications" 
+	            },
+	            success: function( data ) {
+	              response( data );
+	            }
+	          });
+	        },
+	      select: function( event, ui ) {
+	    	  $("#search_doc").off().on('click',function(){
+	    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
+	    	});
+	     }
+	  });
+	  
+	  $("#search_doc").off().on('click',function(){
+		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val())});
   });
-  
-  $("#hospital").autocomplete({
-      source: function( request, response ) {
-          $.ajax({
-            url: "AutoCompleteDoctor",
-            dataType: "json",
-            data: {
-              term: request.term,
-              input: "hospital" 
-            },
-            success: function( data ) {
-              response( data );
-            }
-          });
-        },
-      select: function( event, ui ) {
-    	  $("#search_doc").off().on('click',function(){
-    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
-    	});
-     }
-  });
-  
-  $("#locality").autocomplete({
-      source: function( request, response ) {
-          $.ajax({
-            url: "AutoCompleteDoctor",
-            dataType: "json",
-            data: {
-              term: request.term,
-              input: "locality" 
-            },
-            success: function( data ) {
-            	$("#dummy").html(data);
-              response( data );
-            }
-          });
-        },
-      select: function( event, ui ) {
-    	  $("#search_doc").off().on('click',function(){
-    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
-    	});
-     }
-  });
-  
-  $("#qualifications").autocomplete({
-      source: function( request, response ) {
-          $.ajax({
-            url: "AutoCompleteDoctor",
-            dataType: "json",
-            data: {
-              term: request.term,
-              input: "qualifications" 
-            },
-            success: function( data ) {
-              response( data );
-            }
-          });
-        },
-      select: function( event, ui ) {
-    	  $("#search_doc").off().on('click',function(){
-    		  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val());
-    	});
-     }
-  });
-  
-  $("#search_doc").off().on('click',function(){
-	  searchDoctor($("#name").val(),$("#hospital").val(),$("#locality").val(),$("#qualifications").val())});
   
 }
 
@@ -498,7 +506,7 @@ function exec_update()
 //			"&patient_id=" + patient_id + 
 			"&passwd=" + passwd + 
 			"&house_no=" + house_no +
-			"&street=" + street + 
+			"&street=" + street +  
 			"&state=" + state +
 			"&pin_code=" + pin_code + 
 			"&phone_no=" + phone + 
@@ -512,8 +520,139 @@ function exec_update()
 			"&long_term_med=" + long_term_med + 
 			"&transf_hist=" + transf_hist
 			, true);
-	xhttp.send();	
+	xhttp.send();
 }
+
+
+function order_medicines(){
+	
+	mydiv = "Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
+			"Disease : <input type=\"text\" id = \"disease\" name = \"disease\"> " +
+		    "<button id=\"search_med\"> Submit </button> <br> <br>"
+			
+	SearchMedicines = "<table id=\"order_table\" class=\"display\">"
+	      + " <thead>" 
+	      + " <tr> <th>MEDICINE ID</th> <th>NAME</th> <th>RETAILER</th> <th>PRICE PER UNIT</th> <th>SIDE EFFECTS</th> <th>DISEASE</th> <th>PRESCRIPTION REQUIRED</th> </tr>"  
+	      + " </thead>"
+	      + " </table>";
+			
+	
+
+	var allMedicines;
+	$("#hide_order").html(mydiv).promise().done(function()
+	{
+		$("#content").html("").promise().done(function(){
+			allMedicines = $("#order_table").DataTable({
+			      columns: [{data:"medicine_id"}, {data:"name"}, {data:"retailer"}, {data:"price_per_unit"},
+			    	  {data:"side_effects"}, {data:"chronic_diseases"}, {data:"prescription_required"}],
+				  ajax : {
+						url: "SearchMedicines",
+						data: {
+							
+						}
+					}
+			  });
+		});
+	});
+	
+	
+	$("#name").autocomplete({
+	    source: function( request, response ) {
+	        $.ajax({
+	          url: "AutoCompleteMed",
+	          dataType: "json",
+	          data: {
+	            term: request.term,
+	            input: "name" 
+	          },
+	          success: function( data ) {
+//	          	$("#dummy").html(data);
+	            response( data );
+	          }
+	        });
+	      },
+	    select: function( event, ui ) {
+	  	  $("#search_med").off().on('click',function(){
+	  		  searchMedicine($("#name").val(),$("#disease").val());
+	  	});
+	   }
+	});
+	
+	$("#disease").autocomplete({
+	    source: function( request, response ) {
+	        $.ajax({
+	          url: "AutoCompleteMed",
+	          dataType: "json",
+	          data: {
+	            term: request.term,
+	            input: "disease" 
+	          },
+	          success: function( data ) {
+	            response( data );
+	          }
+	        });
+	      },
+	    select: function( event, ui ) {
+	  	  $("#search_med").off().on('click',function(){
+	  		  searchMedicine($("#name").val(),$("#disease").val());
+	  	});
+	   }
+	});
+
+	
+	$("#search_med").off().on('click',function(){
+		  searchMedicine($("#name").val(),$("#disease").val());
+	});
+}
+
+function searchMedicine(name,disease)
+{
+	SearchMedicines = "<table id=\"med_table\" class=\"display\">"
+	      + " <thead>" 
+	      + " <tr> <th>MEDICINE ID</th> <th>NAME</th> <th>RETAILER</th> <th>PRICE PER UNIT</th> <th>SIDE EFFECTS</th> " +
+	      		"<th>DISEASE</th> <th>CHRONIC DISEASE</th> <th>PRESCRIPTION REQUIRED</th> <th>QUANTITY</th> </tr>"  
+	      + " </thead>"
+	      + " </table>";
+	
+		var listMedicines;
+	  	$("#content").html(SearchMedicines).promise().done(function()
+  		{
+			  listMedicines = $("#med_table").DataTable({
+			      columns: [{data: "medicine_id"}, {data:"name"}, {data:"retailer"}, {data:"price_per_unit"},
+			    	  {data:"side_effects"},{data:"disease"},{data:"chronic_diseases"},{data:"prescription_required"},
+			    	  {
+			    		  data: null,
+			    		  render: function(data,type,row){
+			    			  
+			    			  var ret = '<button onclick=inc(' + data["medicine_id"] + ')>' + '+'  +'</button>' 
+			    			  + '<div id=' + data["medicine_id"] + '>' + 0 + '</div>'
+			    			  +'<button onclick=dec(' + data["medicine_id"] + ')>' + '-' + '</button>';
+			    			  
+			    			  return ret;
+			    		  }
+			    	  }],
+				  ajax : {
+						url: "SearchMedicines",
+						data: {
+							name: name,
+							disease: disease
+						}
+					}
+			  });
+  		});
+}
+
+function inc(id)
+{
+	document.getElementById(id).innerHTML = Number(document.getElementById(id).innerText) + 1;
+}
+
+function dec(id)
+{
+	if(Number(document.getElementById(id).innerText) > 0)
+		document.getElementById(id).innerHTML = Number(document.getElementById(id).innerText) - 1;
+}
+
 
 function loadchatdetails(other_id)
 {
