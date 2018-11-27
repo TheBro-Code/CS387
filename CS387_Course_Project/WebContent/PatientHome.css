@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#navbar li {
+    float: left;
+}
+
+#navbar li:hover{
+	background-color: RoyalBlue;
+}
+
+li .btn {
+	font-family: "Roboto", sans-serif;
+    padding: 14px 16px;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+	border: none;
+	background: none;
+    font-size: 20px;
+}
+
+li .btn:hover {
+    color: white;
+}
+
+div {
+	background-color: RoyalBlue;
+	color: white;
+	font-family: "Roboto", sans-serif;
+    padding: 14px 16px;	
+}
+
+#hide_order button{
+	border: none;
+	background-color: DodgerBlue;
+	color: white;
+}
+
+#hide_order input{
+	color: black;
+	margin: 14px 16px;
+}

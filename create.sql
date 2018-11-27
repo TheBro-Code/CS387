@@ -28,7 +28,8 @@ create table users(
     emergency_no varchar(10),
     blood_type varchar(10),
     DOB varchar(10),
-    age varchar(5)
+    age varchar(5),
+    image bytea
 );
 
 create table patients(
@@ -47,7 +48,7 @@ create table patients(
 create table doctors(
     doctor_id varchar(10) references users(userid)  primary key,
     qualifications varchar(20),
-    speciality varchar(20), 
+    speciality varchar(20),
     college varchar(100) references colleges(name),
     completion varchar(10),
     experience varchar(10),
@@ -127,22 +128,22 @@ create table posts (
 );
 -----------------------------------------------------------------------------
 
-insert into users values ('123','hell','amani','male','A-20','Govindpur','Maharashtra','302018','9876543210','1234567890','A+', '15/10/1975', '44');
-insert into users values ('124','hell','amanj','male','A-20','Govindpur','Maharashtra','302018','9876542211','1234567890','B+', '15/10/1975', '44');
-insert into users values ('125','hell','kartik','male','A-20','Govindpur','Maharashtra','302018','9876543212','1234567890','AB+', '15/10/1975', '44');
-insert into users values ('126','hell','syamantak','male','A-20','Govindpur','Maharashtra','302018','9876543213','1234567890','AB+', '15/10/1975', '44');
-insert into users values ('127','hell','sushil','male','A-20','Govindpur','Maharashtra','302018','9876543214','1234567890','A-', '15/10/1975', '44');
-insert into users values ('128','hell','bansal','male','A-20','Govindpur','Maharashtra','302018','9876543215','1234567890','A-', '15/10/1975', '44');
-insert into users values ('130','hell','kunal','male','A-20','Govindpur','Maharashtra','302018','9876543216','1234567890','B-', '15/10/1975', '44');
-insert into users values ('140','hell','mittal','male','A-20','Govindpur','Maharashtra','302018','9876543217','1234567890','A+','15/10/1975', '44');
-insert into users values ('150','hell','gd','female','A-20','Govindpur','Maharashtra','302018','9876543218','1234567890','AB-','15/10/1975', '44');
-insert into users values ('160','hell','gaurav','female','A-20','Govindpur','Maharashtra','302018','9876543219','1234567890','AB+','15/10/1975', '44');
-insert into users values ('170','hell','andrew','male','A-20','Govindpur','Maharashtra','302018','9876543230','1234567890','O+','15/10/1975', '44');
-insert into users values ('180','hell','garfield','female','A-20','Govindpur','Maharashtra','302018','9876543240','1234567890','O-','15/10/1975', '44');
-insert into users values ('190','hell','leo','male','A-20','Govindpur','Maharashtra','302018','9876543250','1234567890','O+','15/10/1975', '44');
-insert into users values ('200','hell','tom','male','A-20','Govindpur','Maharashtra','302018','9876543260','1234567890','O-','15/10/1975', '44');
-insert into users values ('210','hell','holland','male','A-20','Govindpur','Maharashtra','302018','9876543270','1234567890','O+','15/10/1975', '44');
-insert into users values ('220','hell','yoyo','male','A-20','Govindpur','Maharashtra','302018','9876543280','1234567890','B+','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('123','hell','amani','male','A-20','Govindpur','Maharashtra','302018','9876543210','1234567890','A+', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('124','hell','amanj','male','A-20','Govindpur','Maharashtra','302018','9876542211','1234567890','B+', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('125','hell','kartik','male','A-20','Govindpur','Maharashtra','302018','9876543212','1234567890','AB+', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('126','hell','syamantak','male','A-20','Govindpur','Maharashtra','302018','9876543213','1234567890','AB+', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('127','hell','sushil','male','A-20','Govindpur','Maharashtra','302018','9876543214','1234567890','A-', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('128','hell','bansal','male','A-20','Govindpur','Maharashtra','302018','9876543215','1234567890','A-', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('130','hell','kunal','male','A-20','Govindpur','Maharashtra','302018','9876543216','1234567890','B-', '15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('140','hell','mittal','male','A-20','Govindpur','Maharashtra','302018','9876543217','1234567890','A+','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('150','hell','gd','female','A-20','Govindpur','Maharashtra','302018','9876543218','1234567890','AB-','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('160','hell','gaurav','female','A-20','Govindpur','Maharashtra','302018','9876543219','1234567890','AB+','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('170','hell','andrew','male','A-20','Govindpur','Maharashtra','302018','9876543230','1234567890','O+','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('180','hell','garfield','female','A-20','Govindpur','Maharashtra','302018','9876543240','1234567890','O-','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('190','hell','leo','male','A-20','Govindpur','Maharashtra','302018','9876543250','1234567890','O+','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('200','hell','tom','male','A-20','Govindpur','Maharashtra','302018','9876543260','1234567890','O-','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('210','hell','holland','male','A-20','Govindpur','Maharashtra','302018','9876543270','1234567890','O+','15/10/1975', '44');
+insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('220','hell','yoyo','male','A-20','Govindpur','Maharashtra','302018','9876543280','1234567890','B+','15/10/1975', '44');
 
 insert into colleges values('AIIMS, Delhi');
 insert into colleges values('AIIMS, Jodhpur');

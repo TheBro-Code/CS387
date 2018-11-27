@@ -12,11 +12,12 @@ function loadHome()
 	      + " </thead>"
 	      + " </table>";
   
-  init_bar = "Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
+  init_bar ="<center><h1>Find a Doctor </h1><br><br>"+ 
+	  		"Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
 			"Hospital : <input type=\"text\" id = \"hospital\" name = \"hospital\"> " +
 			"Locality : <input type=\"text\" id = \"locality\" name = \"locality\"> " +
 			"Qualifications : <input type=\"text\" id = \"qualifications\" name = \"qualifications\"> " +
-		    "<button id=\"search_doc\"> Submit </button> <br> <br>";
+		    "<button id=\"search_doc\"> Submit </button></center> <br> <br>";
   
   var ongoingTreat;
   
