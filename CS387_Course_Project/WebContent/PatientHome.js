@@ -287,7 +287,8 @@ function viewProfileDetails(doctor_id)
 		  		+  "<div id = \"experience\"> </div>"
 		  		+  "<div id = \"regnum\"> </div>"
 		  		+ "<div id = \"regyear\"> </div>"
-		  		+  "<div id = \"regcouncil\"> </div>";
+		  		+  "<div id = \"regcouncil\"> </div> <br>"
+		  		+ "<button id=\"your_orders\" onclick=\"book_treatment(" + doctor_id + ")\">Get an Appoitment</button>";
 	
 	var listAppointments;
   	$("#content").html(profile_Det).promise().done(function()
@@ -354,37 +355,36 @@ function loadProfile()
 	var listAppointments;
 	var obj;
 	$("#content").html(profile_Det).promise().done(function()
-		{
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-	   if (this.readyState == 4 && this.status == 200)
-	   {
-	    	obj = JSON.parse(this.responseText);
-	    	document.getElementById("name").innerHTML = "name: " + obj.data[0].name;
-	    	document.getElementById("gender").innerHTML = "Gender: " + obj.data[0].gender;
-	    	document.getElementById("age").innerHTML = "Age: " + obj.data[0].age;
-	    	document.getElementById("blood_type").innerHTML = "Blood Type: " + obj.data[0].blood_type;
-	    	document.getElementById("patient_id").innerHTML = "Patient id : " + obj.data[0].patient_id;
-	    	document.getElementById("passwd").innerHTML = "Password : " + obj.data[0].passwd;
-	    	document.getElementById("house_no").innerHTML = "House No : " + obj.data[0].house_no;
-	    	document.getElementById("street").innerHTML = "Street : " + obj.data[0].street;
-	    	document.getElementById("state").innerHTML = "State : " + obj.data[0].state;
-	    	document.getElementById("pin_code").innerHTML = "Pin code : " + obj.data[0].pin_code;
-	    	document.getElementById("phone_no").innerHTML = "Phone no : " + obj.data[0].phone_no;
-	    	document.getElementById("blood_pressure").innerHTML = "Blood pressure: " + obj.data[0].blood_pressure;
-	    	document.getElementById("blood_sugar").innerHTML = "Blood Sugar: " + obj.data[0].blood_sugar;
-	    	document.getElementById("cardiac_ailment").innerHTML = "Cardiac Ailment : " + obj.data[0].cardiac_ailment;
-	    	document.getElementById("asthma").innerHTML = "Asthma: " + obj.data[0].asthma;
-	    	document.getElementById("allergies").innerHTML = "Allergies: " + obj.data[0].allergies;
-	    	document.getElementById("chronic_diseases").innerHTML = "Chronic Diseases: " + obj.data[0].chronic_diseases;
-	    	document.getElementById("major_surgeries").innerHTML = "Major surgeries: " + obj.data[0].major_surgeries;
-	    	document.getElementById("long_term_med").innerHTML = "Long term med: " + obj.data[0].long_term_med;
-	    	document.getElementById("transf_hist").innerHTML = "Transfusion history : " + obj.data[0].transf_hist;
-	   }
-	   else{
-		   
-	   }
-	};
+	{
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		   if (this.readyState == 4 && this.status == 200) {
+		    	obj = JSON.parse(this.responseText);
+		    	document.getElementById("name").innerHTML = "name: " + obj.data[0].name;
+		    	document.getElementById("gender").innerHTML = "Gender: " + obj.data[0].gender;
+		    	document.getElementById("age").innerHTML = "Age: " + obj.data[0].age;
+		    	document.getElementById("blood_type").innerHTML = "Blood Type: " + obj.data[0].blood_type;
+		    	document.getElementById("patient_id").innerHTML = "Patient id : " + obj.data[0].patient_id;
+		    	document.getElementById("passwd").innerHTML = "Password : " + obj.data[0].passwd;
+		    	document.getElementById("house_no").innerHTML = "House No : " + obj.data[0].house_no;
+		    	document.getElementById("street").innerHTML = "Street : " + obj.data[0].street;
+		    	document.getElementById("state").innerHTML = "State : " + obj.data[0].state;
+		    	document.getElementById("pin_code").innerHTML = "Pin code : " + obj.data[0].pin_code;
+		    	document.getElementById("phone_no").innerHTML = "Phone no : " + obj.data[0].phone_no;
+		    	document.getElementById("blood_pressure").innerHTML = "Blood pressure: " + obj.data[0].blood_pressure;
+		    	document.getElementById("blood_sugar").innerHTML = "Blood Sugar: " + obj.data[0].blood_sugar;
+		    	document.getElementById("cardiac_ailment").innerHTML = "Cardiac Ailment : " + obj.data[0].cardiac_ailment;
+		    	document.getElementById("asthma").innerHTML = "Asthma: " + obj.data[0].asthma;
+		    	document.getElementById("allergies").innerHTML = "Allergies: " + obj.data[0].allergies;
+		    	document.getElementById("chronic_diseases").innerHTML = "Chronic Diseases: " + obj.data[0].chronic_diseases;
+		    	document.getElementById("major_surgeries").innerHTML = "Major surgeries: " + obj.data[0].major_surgeries;
+		    	document.getElementById("long_term_med").innerHTML = "Long term med: " + obj.data[0].long_term_med;
+		    	document.getElementById("transf_hist").innerHTML = "Transfusion history : " + obj.data[0].transf_hist;
+		   }
+		   else{
+			   
+		   }
+		};
 	xhttp.open("GET", "profile", true);
 	xhttp.send();
 	});
@@ -582,4 +582,9 @@ function loadchatdetails(other_id)
     };
     xhttp.open("GET", "ConversationDetail?other_id=" + other_id, true);
     xhttp.send();
+}
+
+function book_treatment(doctor_id) {
+	
+	
 }

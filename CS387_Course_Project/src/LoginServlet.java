@@ -152,8 +152,5 @@ public class LoginServlet extends HttpServlet {
 				response.getWriter().print(LOGIN_FORM_ERROR);
 			}
 		}
-		
-
 	}
-
 }
