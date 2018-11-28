@@ -46,13 +46,15 @@ public class AddComments extends HttpServlet {
 		String appointment_id = request.getParameter("appointment_id");
 		String comments = request.getParameter("comments");
 		
-		System.out.println(appointment_id +  " " + comments);
+		int a_id = Integer.parseInt(appointment_id);
+		
+//		System.out.println(appointment_id +  " " + comments);
 	
 		
 		String query = "update appointment set comments = ? where appointment_id = ?;";
 		String json = DbHelper.executeUpdateJson(query, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,  DbHelper.ParamType.STRING},
-				new String[] {comments,appointment_id});
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,  DbHelper.ParamType.INT},
+				new Object[] {comments,a_id});
 	}
 
 }

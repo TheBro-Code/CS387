@@ -226,5 +226,40 @@ public class DbHelper {
 			System.out.println(json);
 		}
 	}
+	
+	/**
+	 * Executes query and returns results as JSON,
+	 * returns null on any error.
+	 */
+	protected static ObjectNode executeQueryJson1(String query, ParamType[] paramTypes, Object[] params) {
+    	ArrayNode json = null;
+    	try (Connection conn = DriverManager.getConnection(Config.url, Config.user, Config.password))
+        {
+            conn.setAutoCommit(false);
+            try(PreparedStatement stmt = conn.prepareStatement(query)) {
+            	setParams(stmt, paramTypes, params);
+                ResultSet rs = stmt.executeQuery();
+                json = resultSetToJson(rs);
+                conn.commit();
+            }
+            catch(Exception ex)
+            {
+                conn.rollback();
+                throw ex;
+            }
+            finally{
+                conn.setAutoCommit(true);
+            }
+        } catch (Exception e) {
+            return errorJson(e.getMessage());
+        }
+    	
+    	ObjectNode node = mapper.createObjectNode();
+    	node.putArray(DATA_LABEL).addAll(json);    	
+    	node.put(STATUS_LABEL, true);
+    	return node;
+    }
 
 }
+
+

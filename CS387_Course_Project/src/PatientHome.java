@@ -81,6 +81,7 @@ public class PatientHome extends HttpServlet {
 				"<br> <br>" +
 				"<div id=\"dummy\"></div>" +
 				"<div id=\"content\"> </div>" +
+				"<div id=\"appointment\"></div>" +
 				"<br><br>" +
 	
 				"<div class=\"form-popup\" id=\"myForm\">\n" + 

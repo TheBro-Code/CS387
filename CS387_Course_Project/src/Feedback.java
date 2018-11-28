@@ -46,11 +46,12 @@ public class Feedback extends HttpServlet {
 		String treatment_id = request.getParameter("treatment_id");
 		String feedback = request.getParameter("feedback");
 	
+		int t_id = Integer.parseInt(treatment_id);
 		
 		String query = "insert into feedback(treatment_id,text) values (?, ?)";
 		String json = DbHelper.executeUpdateJson(query, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,  DbHelper.ParamType.STRING},
-				new String[] {treatment_id, feedback});
+				new DbHelper.ParamType[] {DbHelper.ParamType.INT,  DbHelper.ParamType.STRING},
+				new Object[] {t_id, feedback});
 			
 	}
 

@@ -90,8 +90,8 @@ public class profile extends HttpServlet {
 							new String[] {userid});
 				}
 				else {
-					query = "SELECT name,gender,age,doctor_id,slot_time,qualifications,speciality,college,completion, "
-							+ "experience, regnum, regcouncil, regyear, weekday_hours,weekend_hours,hospital, "
+					query = "SELECT name,gender,age,doctor_id,qualifications,speciality,college,completion, "
+							+ "experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours,slot_time,hospital, "
 							+ "hospital_address, fees,rating "
 							+ "from doctors,users where userid = doctor_id and doctor_id = ?; ";
 					res = DbHelper.executeQueryJson(query, 
@@ -123,7 +123,7 @@ public class profile extends HttpServlet {
 			String major_surgeries = request.getParameter("major_surgeries");
 			String long_term_med = request.getParameter("long_term_med");
 			String transf_hist = request.getParameter("transf_hist");
-			
+
 			String qualifications = request.getParameter("qualifications");
 			String speciality= request.getParameter("speciality");
 			String college = request.getParameter("college");
@@ -138,6 +138,7 @@ public class profile extends HttpServlet {
 			String hospital_address = request.getParameter("hospital_address");
 			String fees = request.getParameter("fees");
 			
+
 			
 			String query1 = "";
 			String query2 = "";
