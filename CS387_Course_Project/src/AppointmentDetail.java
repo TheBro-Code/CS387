@@ -44,15 +44,17 @@ public class AppointmentDetail extends HttpServlet {
 		}
 		
 		String appointment_id = (String) request.getParameter("appointment_id");
-		System.out.println("Appointment ID clicked is " + appointment_id);
+		
+		int a_id = Integer.parseInt(appointment_id);
+		System.out.println("Appointment ID clicked is " + a_id);
 		
 		String query = "SELECT a.appointment_id, reason_visit, start_time, comments, medicine_id, quantity "
 				+ "FROM appointment a, prescription p "
 				+ "WHERE a.appointment_id = p.appointment_id AND a.appointment_id = ?";
 		
 		String res = DbHelper.executeQueryJson(query, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
-				new String[] {appointment_id});
+				new DbHelper.ParamType[] {DbHelper.ParamType.INT}, 
+				new Object[] {a_id});
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);

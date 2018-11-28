@@ -57,15 +57,11 @@ public class PatientHome extends HttpServlet {
 				"<button id=\"treatment_history\" onclick=\"treatment_history()\"> Treatment History </button>" +
 				"<button id=\"your_orders\" onclick=\"your_orders()\"> Your Orders </button>" +
 				"<form action=\"LogoutServlet\"> <input type=\"submit\" value=\"Logout\"> </form>" +
-				"Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
-				"Hospital : <input type=\"text\" id = \"hospital\" name = \"hospital\"> " +
-				"Locality : <input type=\"text\" id = \"locality\" name = \"locality\"> " +
-				"Qualifications : <input type=\"text\" id = \"qualifications\" name = \"qualifications\"> " +
-		        "<button id=\"search_doc\"> Submit </button> <br> <br>" +
 				"<button id=\"patient_profile\" onclick=\"loadProfile()\"> View/Update Profile</button>" +
 				"<br> <br>" +
 				"<div id=\"dummy\"></div>" +
 				"<div id=\"content\"> </div>" +
+				"<div id=\"appointment\"></div>" +
 				"<br><br>" +
 				"</body>" +
 				"</html>";

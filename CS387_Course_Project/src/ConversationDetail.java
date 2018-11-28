@@ -34,6 +34,8 @@ public class ConversationDetail extends HttpServlet {
 		String userid = (String) session.getAttribute("userid");
 		String role = (String) session.getAttribute("role");
 		String other_id = request.getParameter("other_id");
+//		System.out.println(userid);
+//		System.out.println(other_id);
 		
 		String messagesQuery = "";
 		String json = "";
@@ -59,6 +61,7 @@ public class ConversationDetail extends HttpServlet {
 							DbHelper.ParamType.STRING}, 
 					new String[] {other_id, userid});
 		}
+//		System.out.println(json);
 		response.getWriter().print(json);
 		
 	}

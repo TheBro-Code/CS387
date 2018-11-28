@@ -76,7 +76,7 @@ public class profile extends HttpServlet {
 				}
 				else {
 					query = "SELECT name,gender,age,doctor_id,qualifications,speciality,college,completion, "
-							+ "experience, regnum, regcouncil, regyear, start_time,end_time,slot_time,hospital, "
+							+ "experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours,slot_time,hospital, "
 							+ "hospital_address, fees,rating "
 							+ "from doctors,users where userid = doctor_id and doctor_id = ?; ";
 					res = DbHelper.executeQueryJson(query, 
@@ -108,25 +108,25 @@ public class profile extends HttpServlet {
 			String long_term_med = request.getParameter("long_term_med");
 			String transf_hist = request.getParameter("transf_hist");
 			
-			System.out.println(newname);
-			System.out.println(gender);
-			System.out.println(age);
-			System.out.println(blood_type);
-			System.out.println(passwd);
-			System.out.println(house_no);
-			System.out.println(street);
-			System.out.println(state);
-			System.out.println(pin_code);
-			System.out.println(phone_no);
-			System.out.println(blood_pressure);
-			System.out.println(blood_sugar);
-			System.out.println(cardiac_ailment);
-			System.out.println(asthma);
-			System.out.println(allergies);
-			System.out.println(chronic_diseases);
-			System.out.println(major_surgeries);
-			System.out.println(long_term_med);
-			System.out.println(transf_hist);
+//			System.out.println(newname);
+//			System.out.println(gender);
+//			System.out.println(age);
+//			System.out.println(blood_type);
+//			System.out.println(passwd);
+//			System.out.println(house_no);
+//			System.out.println(street);
+//			System.out.println(state);
+//			System.out.println(pin_code);
+//			System.out.println(phone_no);
+//			System.out.println(blood_pressure);
+//			System.out.println(blood_sugar);
+//			System.out.println(cardiac_ailment);
+//			System.out.println(asthma);
+//			System.out.println(allergies);
+//			System.out.println(chronic_diseases);
+//			System.out.println(major_surgeries);
+//			System.out.println(long_term_med);
+//			System.out.println(transf_hist);
 			
 			String query1 = "";
 			String query2 = "";

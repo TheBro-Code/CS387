@@ -46,6 +46,12 @@ public class TreatmentDetail extends HttpServlet {
 		String treatment_id = request.getParameter("treatment_id").toString();
 		String currentOnly =  request.getParameter("current").toString();
 		
+		
+		
+		int t_id = Integer.parseInt(treatment_id);
+		
+		System.out.println(t_id);
+		
 		String query = "";
 		String res = "";
 		if(currentOnly.equals("true")) {
@@ -60,8 +66,8 @@ public class TreatmentDetail extends HttpServlet {
 		}
 		
 		res = DbHelper.executeQueryJson(query, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
-				new String[] {treatment_id});
+				new DbHelper.ParamType[] {DbHelper.ParamType.INT}, 
+				new Object[] {t_id});
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);

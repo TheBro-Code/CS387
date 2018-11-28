@@ -296,7 +296,7 @@ function viewProfileDetails(doctor_id)
 		  		+  "<div id = \"regnum\"> </div>"
 		  		+ "<div id = \"regyear\"> </div>"
 		  		+  "<div id = \"regcouncil\"> </div> <br>"
-		  		+ "<button id=\"your_orders\" onclick=\"book_treatment(" + doctor_id + ")\">Get an Appoitment</button>";
+		  		+ "<button id=\"bookTreatment\" onclick=\"book_treatment(" + doctor_id + ")\">Get an Appoitment</button>";
 	
 	var listAppointments;
   	$("#content").html(profile_Det).promise().done(function()
@@ -306,6 +306,7 @@ function viewProfileDetails(doctor_id)
 	       if (this.readyState == 4 && this.status == 200)
 	       {
 	        	var obj = JSON.parse(this.responseText);
+	        	console.log(obj);
 	        	document.getElementById("name").innerHTML = "name: " + obj.data[0].name;
 	        	document.getElementById("gender").innerHTML = "Gender: " + obj.data[0].gender;
 	        	document.getElementById("age").innerHTML = "Age: " + obj.data[0].age;
@@ -318,8 +319,8 @@ function viewProfileDetails(doctor_id)
 	        	document.getElementById("regnum").innerHTML = "Regnum: " + obj.data[0].regnum;
 	        	document.getElementById("regcouncil").innerHTML = "Regcouncil: " + obj.data[0].regcouncil;
 	        	document.getElementById("regyear").innerHTML = "Regyear: " + obj.data[0].regyear;
-	        	document.getElementById("start_work_time").innerHTML = "Working Hours (Start): " + obj.data[0].start_time;
-	        	document.getElementById("end_work_time").innerHTML = "Working Hours (End): " + obj.data[0].end_time;
+	        	document.getElementById("start_work_time").innerHTML = "Working Hours (Start): " + obj.data[0].weekday_hours;
+	        	document.getElementById("end_work_time").innerHTML = "Working Hours (End): " + obj.data[0].weekend_hours;
 	        	document.getElementById("slot_time").innerHTML = "Slot_time: " + obj.data[0].slot_time;
 	        	document.getElementById("hospital").innerHTML = "Hospital: " + obj.data[0].hospital;
 	        	document.getElementById("hospital_address").innerHTML = "Hospital Address: " + obj.data[0].hospital_address;
@@ -607,6 +608,7 @@ function order_medicines(){
 
 function searchMedicine(name,disease)
 {
+	console.log(disease);
 	SearchMedicines = "<table id=\"med_table\" class=\"display\">"
 	      + " <thead>" 
 	      + " <tr> <th>MEDICINE ID</th> <th>NAME</th> <th>RETAILER</th> <th>PRICE PER UNIT</th> <th>SIDE EFFECTS</th> " +
@@ -618,8 +620,7 @@ function searchMedicine(name,disease)
 	  	$("#content").html(SearchMedicines).promise().done(function()
   		{
 			  listMedicines = $("#med_table").DataTable({
-			      columns: [{data: "medicine_id"}, {data:"name"}, {data:"retailer"}, {data:"price_per_unit"},
-			    	  {data:"side_effects"},{data:"disease"},{data:"chronic_diseases"},{data:"prescription_required"},
+			      columns: [{data: "medicine_id"}, {data:"name"}, {data:"retailer"}, {data:"price_per_unit"},{data:"side_effects"},{data:"disease"},{data:"chronic_diseases"},{data:"prescription_required"},
 			    	  {
 			    		  data: null,
 			    		  render: function(data,type,row){
@@ -663,8 +664,8 @@ function loadchatdetails(other_id)
        {
         	var myTable = "<table style=\"background-repeat:no-repeat; width:100%;margin:0;\" text-align: center; cellpadding=\"5\" cellspacing=\"7\" border=\"3\">";
         	myTable += "<tr>";
-        	myTable += "<th> post_id </th>";
-        	myTable += "<th> thread_id </th>";
+//        	myTable += "<th> post_id </th>";
+//        	myTable += "<th> thread_id </th>";
         	myTable += "<th> uid </th>";
         	myTable += "<th> timestamp </th>";
         	myTable += "<th> text </th></tr>";
@@ -673,9 +674,9 @@ function loadchatdetails(other_id)
         	
     		for(var i=0;i<obj.data.length;i++){
     			myTable += "<tr>";
-            	myTable += "<td>" + obj.data[i].post_id + "</td>";
-            	myTable += "<td>" + obj.data[i].thread_id + "</td>";
-            	myTable += "<td>" + obj.data[i].uid + "</td>";
+//            	myTable += "<td>" + obj.data[i].post_id + "</td>";
+//            	myTable += "<td>" + obj.data[i].thread_id + "</td>";
+            	myTable += "<td>" + obj.data[i].userid + "</td>";
             	myTable += "<td>" + obj.data[i].timestamp + "</td>";
             	myTable += "<td>" + obj.data[i].text + "</td>";
             	myTable += "</tr>";
@@ -689,7 +690,7 @@ function loadchatdetails(other_id)
 				+ "<button id = \"Submit\">Submit </button>"
 				+ "";
     		
-    		document.getElementById("content").innerHTML = myTable;
+//    		document.getElementById("content").innerHTML = myTable;
     		$("#content").html(myTable).promise().done(function(){
     			$('#Submit').on("click",function () {
 //    				  var uid = $("#other_id").val();
@@ -698,15 +699,7 @@ function loadchatdetails(other_id)
     				  xhttp1.onreadystatechange = function() {
     				  	if (this.readyState == 4 && this.status == 200) {
     				  		var str = this.responseText;
-    				  		var json_object = JSON.parse(str);
-    				  		if(str.indexOf("true") < 0 || json_object.status == false)
-    				  		{
-    				  			alert(json_object.message);
-    				  		}
-    				  		else
-    				  		{
-    				  			loadchatdetails(other_id);
-    				  		}
+    				  		loadchatdetails(other_id);
     				  	}
     				  	else{
     				  	}
@@ -724,6 +717,186 @@ function loadchatdetails(other_id)
 }
 
 function book_treatment(doctor_id) {
-	
+	var dateSelector = "<div><span>Date: <input type=\"text\" id=\"datepicker\" " +
+			"onchange=\"bookTreatmentUtil(" + doctor_id + ")\"></span><div><br>";
+	$("#appointment").html(dateSelector).promise().done(function(){
+		var $datepicker = $('#datepicker');
+		$datepicker.datepicker();
+		$datepicker.datepicker('setDate', new Date());
+		
+		
+		bookTreatmentUtil(doctor_id);
+	});
 	
 }
+
+Date.prototype.yyyymmdd = function() {
+	  var mm = this.getMonth() + 1; // getMonth() is zero-based
+	  var dd = this.getDate();
+
+	  return [this.getFullYear(),'-',
+	          (mm>9 ? '' : '0') + mm,'-',
+	          (dd>9 ? '' : '0') + dd
+	         ].join('');
+	};
+
+
+function bookTreatmentUtil(doctor_id) {
+	var $datepicker = $('#datepicker');
+	$datepicker.datepicker();
+//	$datepicker.datepicker('setDate', new Date());
+	var date = $datepicker.datepicker('getDate');
+	var dayOfWeek = date.getUTCDay();
+	console.log(date.yyyymmdd());
+	console.log(dayOfWeek);
+	
+	var xhttp1 = new XMLHttpRequest();
+	xhttp1.onreadystatechange = function() {
+	  	if (this.readyState == 4 && this.status == 200) {
+	  		var str = this.responseText;
+	  		var json_object = JSON.parse(str);
+	  		console.log(json_object);
+	  		var appointmentSlots = "<div><span>Date: <input type=\"text\" id=\"datepicker\"" +
+	  				" onchange=\"bookTreatmentUtil(" + doctor_id + ")\"></span><div><br>" +
+	  		"   <div>\n" + 
+			"		<span>Choose a time slot to book an appointment for "+ date + " </span>\n" + 
+			"	</div>\n" + 
+			"	<div>\n" + 
+			"		<div style=\"width: 100%\">\n" + 
+			"			<div>Morning</div>\n" + 
+			"			<div>\n";
+	  		
+	  		var i = 0;
+	  		while(true){
+	  			if(i >= json_object.data.length)
+	  				break;
+	  			var d = new Date(json_object.data[i].freeslot);
+	  			if(Date.parse('14 Oct 1998 ' + d.toLocaleTimeString()) >= Date.parse('14 Oct 1998 12:00:00 PM')) {
+	  				break;
+	  			}
+	  			appointmentSlots += "<button onclick=\"bookAppointment(" +
+  				doctor_id + ",'" + date.yyyymmdd() + "', '" + d.toLocaleTimeString() 
+  				+ "')\">" + d.toLocaleTimeString() + "</button><br>";
+//            	alert("here");
+            	console.log(new Date(json_object.data[i].freeslot));
+            	console.log(i);
+            	i += 1;
+    		}
+ 
+			appointmentSlots += "</div>\n" + 
+			"		</div>\n" + 
+			"		<div style=\"width: 100%\">\n" + 
+			"			<div>Afternoon</div>\n" + 
+			"			<div>\n";
+			
+			while(true){
+				if(i >= json_object.data.length)
+	  				break;
+	  			var d = new Date(json_object.data[i].freeslot);
+	  			if(Date.parse('14 Oct 1998 ' + d.toLocaleTimeString()) >= Date.parse('14 Oct 1998 05:00:00 PM')) {
+	  				break;
+	  			}
+	  			appointmentSlots += "<button onclick=\"bookAppointment(" +
+  				doctor_id + ",'" + date.yyyymmdd() + "', '" + d.toLocaleTimeString() 
+  				+ "')\">" + d.toLocaleTimeString() + "</button><br>";
+//            	alert("here");
+            	console.log(new Date(json_object.data[i].freeslot));
+            	console.log(i);
+            	i += 1;
+    		}
+			
+			appointmentSlots +=  "</div>\n" + 
+			"		</div>\n" + 
+			"		<div style=\"width: 100%\">\n" + 
+			"			<div>Evening</div>\n" + 
+			"			<div>\n"
+			
+			while(true){
+				if(i >= json_object.data.length)
+	  				break;
+	  			var d = new Date(json_object.data[i].freeslot);
+	  			if(Date.parse('14 Oct 1998 ' + d.toLocaleTimeString()) >= Date.parse('14 Oct 1998 08:00:00 PM')) {
+	  				break;
+	  			}
+	  			appointmentSlots += "<button onclick=\"bookAppointment(" +
+  				doctor_id + ",'" + date.yyyymmdd() + "', '" + d.toLocaleTimeString() 
+  				+ "')\">" + d.toLocaleTimeString() + "</button><br>";
+//            	alert("here");
+            	console.log(new Date(json_object.data[i].freeslot));
+            	console.log(i);
+            	i += 1;
+    		}
+			
+			appointmentSlots +=  "</div>\n" + 
+			"		</div>\n" + 
+			"		<div style=\"width: 100%\">\n" + 
+			"			<div>Night</div>\n" + 
+			"			<div>\n"
+			
+			while(true){
+				if(i >= json_object.data.length)
+	  				break;
+	  			var d = new Date(json_object.data[i].freeslot);
+	  			appointmentSlots += "<button onclick=\"bookAppointment(" +
+	  				doctor_id + ",'" + date.yyyymmdd() + "', '" + d.toLocaleTimeString() 
+	  				+ "')\">" + d.toLocaleTimeString() + "</button><br>";
+//            	alert("here");
+            	console.log(new Date(json_object.data[i].freeslot));
+            	console.log(i);
+            	i += 1;
+    		}
+			
+			appointmentSlots += "</div>\n" + 
+			"		</div>\n" + 
+			"	</div>";
+			
+//			document.getElementById("appointment").innnerHTML += appointmentSlots; 
+			console.log(appointmentSlots);
+			$("#appointment").html(appointmentSlots).promise().done(function(){
+				$( "#datepicker" ).datepicker();
+			});
+	  	}
+	  	else{
+	  	}
+	};
+	
+	xhttp1.open("GET", "GetFreeSlots?doctor_id=" + doctor_id + "&date=" + date.yyyymmdd() + "&day=" + dayOfWeek, true);
+	xhttp1.send();
+}
+
+function bookAppointment(doctor_id, date, startTime) {
+
+	var reasonForVisit = prompt("Please enter your reason for visit", "your reason....(limited for 500 characters)");
+	console.log(reasonForVisit);
+	if (reasonForVisit == null) {
+//	    txt = "User cancelled the prompt.";
+	} else {
+		var xhttp1 = new XMLHttpRequest();
+		xhttp1.onreadystatechange = function() {
+		  	if (this.readyState == 4 && this.status == 200) {
+		  		var str = this.responseText;
+		  		$("#appointment").html("");
+		  		alert("Your appointment has been booked (You can check its details under the treatment tab)");
+		  		loadHome();
+		  	}
+		}
+		console.log(reasonForVisit);
+		xhttp1.open("GET", "BookTreatment?doctor_id=" + doctor_id + "&date=" + date
+				+ "&startTime=" + startTime + "&reasonForVisit=" + reasonForVisit.toString(), true);
+		xhttp1.send();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

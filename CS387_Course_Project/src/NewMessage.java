@@ -41,6 +41,8 @@ public class NewMessage extends HttpServlet {
 		String role = (String) session.getAttribute("role");
 		String other_id = request.getParameter("other_id");
 		String newMsg = request.getParameter("msg");
+//		System.out.println("NewMessage : " + userid);
+//		System.out.println(other_id);
 		
 		String sanitizedMsg = Jsoup.clean(newMsg, Whitelist.basic());; //Edit this line to sanitize newMsg before assigning to sanitizedMsg
 		
@@ -77,6 +79,7 @@ public class NewMessage extends HttpServlet {
 						DbHelper.ParamType.STRING,
 						DbHelper.ParamType.STRING},
 				new Object[] {thread_id, userid, sanitizedMsg});
+		System.out.println(json);
 		response.getWriter().print(json);
 	}
 

@@ -45,7 +45,7 @@ public class SearchMedicines extends HttpServlet {
 					new DbHelper.ParamType[] {}, 
 					new String[] {});
 			
-//			System.out.println(json);
+			System.out.println(json);
 			response.getWriter().print(json);
 		}
 		
@@ -58,7 +58,7 @@ public class SearchMedicines extends HttpServlet {
 					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 					new String[] {retailer});
 			
-//			System.out.println(json);
+			System.out.println(json);
 			response.getWriter().print(json);
 		}
 		else if(retailer.isEmpty()){
@@ -70,7 +70,7 @@ public class SearchMedicines extends HttpServlet {
 					new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
 					new String[] {name});
 			
-//			System.out.println(json);
+			System.out.println(json);
 			response.getWriter().print(json);
 		}
 	}
