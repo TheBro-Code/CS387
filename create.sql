@@ -55,8 +55,8 @@ create table doctors(
     regnum varchar(20) unique,
     regcouncil varchar(30),
     regyear varchar(10),
-    start_time time,
-    end_time time,
+    weekday_hours varchar(200),
+    weekend_hours varchar(200),
     slot_time interval,
     hospital varchar(20),
     hospital_address varchar(50),
@@ -106,7 +106,7 @@ create table medicine_order(
 );
 
 create table feedback(
-   feedback_id varchar(20) primary key,
+   feedback_id serial primary key,
    treatment_id varchar(20) references treatment,
    stars varchar(10),
    text varchar(100)
@@ -179,6 +179,7 @@ insert into treatment(treatment_id, patient_id, doctor_id) values ('7','190','12
 insert into treatment(treatment_id, patient_id, doctor_id) values ('8','200','127');
 insert into treatment(treatment_id, patient_id, doctor_id) values ('9','210','128');
 insert into treatment(treatment_id, patient_id, doctor_id) values ('10','220','128');
+insert into treatment(treatment_id, patient_id, doctor_id) values ('11','130','124');
 
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('100','1','Stomach ache','2018-11-12 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('101','1','Head ache','2018-09-13 15:09');
@@ -190,6 +191,14 @@ insert into appointment(appointment_id, treatment_id, reason_visit,start_time) v
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('107','4','Stomach ache','2018-09-19 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('108','5','Stomach ache','2018-09-12 15:09');
 insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('109','5','Stomach ache','2018-09-13 15:09');
+insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('110','11','Stomach ache','2018-11-12 15:09');
+
+insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('111','11','Stomach ache','2018-11-28 10:45');
+insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('112','10','Stomach ache','2018-11-28 5:09');
+insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('113','1','Stomach ache','2018-11-28 3:00');
+insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('115','1','Stomach ache','2018-11-28 3:00');
+insert into appointment(appointment_id, treatment_id, reason_visit,start_time) values ('114','1','Stomach ache','2018-11-28 13:00');
+
 
 insert into medicine values ('300','Paracetamol','Apollo','25','sleeplessness','Fever','None','No');
 insert into medicine values ('301','Citrezine','Apollo','25','sleeplessness','Fever','None','Yes');
@@ -201,3 +210,4 @@ insert into prescription values ('100','301','3');
 insert into prescription values ('101','302','3');
 insert into prescription values ('102','303','3');
 insert into prescription values ('103','303','3');
+insert into prescription values ('114','303','3');

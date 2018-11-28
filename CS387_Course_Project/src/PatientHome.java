@@ -34,13 +34,13 @@ public class PatientHome extends HttpServlet {
 		}
 		
 		String html = "<html><head><title>Home</title>" + 
-			    "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">"+
+			    "<link rel=\"stylesheet\" href=\"bootstrap.min.css\">"+
 			    "	<link rel=\"stylesheet\" type=\"text/css\" href=\"PatientHome.css\">\r\n" +
-			    "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">" +
+			    "<link rel=\"stylesheet\" href=\"font-awesome.min.css\">" +
 			    "<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.5.0/css/all.css\" integrity=\"sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU\" crossorigin=\"anonymous\">"+
 				"<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">"+
-			    "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>" +
-			    "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>"+
+			    "<script src=\"jquery.min.js\"></script>" +
+			    "<script src=\"bootstrap.min.js\"></script>"+
 				"<script src=\"jquery-3.3.1.js\"> </script>" + 
 				"<script src=\"jquery.dataTables.min.js\"></script>" + 
 				"<script src=\"jquery-ui.min.js\"></script>" + 
@@ -82,6 +82,25 @@ public class PatientHome extends HttpServlet {
 				"<div id=\"dummy\"></div>" +
 				"<div id=\"content\"> </div>" +
 				"<br><br>" +
+	
+				"<div class=\"form-popup\" id=\"myForm\">\n" + 
+				"  <form method=\"post\" onSubmit=\"formclick(); return false;\" class=\"form-container\">\n" + 
+				" <div id=\"comp\" style=\"color:red background-color:white\"> </div> " +
+				"   <input type=\"text\" id=\"feedback\" name=\"feedback\"> </input>" +
+				"   <input type=\"hidden\" style=\"background-color:white\" id=\"treatment_id\" name=\"treatment_id\"> </input>" +
+				"   <fieldset class=\"rating\">\n" + 
+				"        <legend>Please rate:</legend>\n" + 
+				"        <input type=\"radio\" id=\"star5\" name=\"rating\" value=\"5\" /><label for=\"star5\" title=\"Rocks!\">5 stars</label>\n" + 
+				"        <input type=\"radio\" id=\"star4\" name=\"rating\" value=\"4\" /><label for=\"star4\" title=\"Pretty good\">4 stars</label>\n" + 
+				"        <input type=\"radio\" id=\"star3\" name=\"rating\" value=\"3\" /><label for=\"star3\" title=\"Meh\">3 stars</label>\n" + 
+				"        <input type=\"radio\" id=\"star2\" name=\"rating\" value=\"2\" /><label for=\"star2\" title=\"Kinda bad\">2 stars</label>\n" + 
+				"        <input type=\"radio\" id=\"star1\" name=\"rating\" value=\"1\" /><label for=\"star1\" title=\"Sucks big time\">1 star</label>\n" + 
+				"    </fieldset>\n" + 
+				"    <div class=\"clearfix\"></div>\n" + 
+				"    <input type=\"submit\" value=\"Submit\" class=\"btn\"> Submit </input>\n" + 
+				"    <button type=\"button\" class=\"btn cancel\" onclick=\"closeForm()\"> Close </button>\n" + 
+				"  </form>\n" +
+				"</div>" +
 				
 				
 //				"<button onclick=\"loadHome()\"> Home </button><br><br>" +

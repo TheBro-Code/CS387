@@ -1,8 +1,6 @@
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class TreatmentDetail
+ * Servlet implementation class AddComments
  */
-@WebServlet("/TreatmentDetail")
-public class TreatmentDetail extends HttpServlet {
+@WebServlet("/AddComments")
+public class AddComments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TreatmentDetail() {
+    public AddComments() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +28,7 @@ public class TreatmentDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
+		doPost(request, response);
 	}
 
 	/**
@@ -39,35 +37,22 @@ public class TreatmentDetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		if(session.getAttribute("userid") == null) { //not logged in
 			response.sendRedirect("LoginServlet");
 		}
 		
-		String treatment_id = request.getParameter("treatment_id").toString();
-		String currentOnly =  request.getParameter("current").toString();
 		
-		String query = "";
-		String res = "";
-		if(currentOnly.equals("true")) {
-			query = "SELECT appointment_id, start_time "
-					+ "FROM appointment "
-					+ "WHERE treatment_id = ?";
-		}
-		else {
-			query = "SELECT appointment_id, start_time "
-					+ "FROM appointment "
-					+ "WHERE treatment_id = ?";
-		}
+		String appointment_id = request.getParameter("appointment_id");
+		String comments = request.getParameter("comments");
 		
-		res = DbHelper.executeQueryJson(query, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
-				new String[] {treatment_id});
+		System.out.println(appointment_id +  " " + comments);
+	
 		
-		PrintWriter out = response.getWriter();
-		out.print(res);
-		
-		System.out.println(res);
+		String query = "update appointment set comments = ? where appointment_id = ?;";
+		String json = DbHelper.executeUpdateJson(query, 
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,  DbHelper.ParamType.STRING},
+				new String[] {comments,appointment_id});
 	}
 
 }

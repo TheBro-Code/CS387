@@ -40,14 +40,14 @@ public class Appointments extends HttpServlet {
 		String res = "";
 		
 		if(role.equals("doctor")) {
-			query = "SELECT patient_id,appointment.start_time::time AS start_time "
+			query = "SELECT treatment.treatment_id,appointment_id,patient_id,appointment.start_time::time AS start_time "
 					+ "FROM treatment,appointment "
 					+ "WHERE treatment.treatment_id = appointment.treatment_id "
-					+ "AND appointment.start_time::date = now()::date AND "
+					+ "AND appointment.start_time::date = now()::date AND appointment.start_time::time >= now()::time AND "
 					+ "doctor_id = ?;";
 		}
 		else {
-			query = "SELECT doctor_id,appointment.start_time::time AS start_time "
+			query = "SELECT treatment.treatment_id,appointment_id,doctor_id,appointment.start_time::time AS start_time "
 					+ "FROM treatment,appointment "
 					+ "WHERE treatment.treatment_id = appointment.treatment_id "
 					+ "AND appointment.start_time::date = now()::date AND "
@@ -60,6 +60,7 @@ public class Appointments extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);
+		System.out.println(res);
 	}
 
 	/**

@@ -57,7 +57,7 @@ public class Treatments extends HttpServlet {
 						+ "WHERE doctor_id = ? AND end_time IS NOT NULL";	
 			}
 			else {
-				query = "SELECT treatment_id, patient_id,start_time,end_time "
+				query = "SELECT treatment_id, doctor_id,start_time,end_time "
 						+ "FROM treatment "
 						+ "WHERE patient_id = ? AND end_time IS NOT NULL";
 			}
@@ -68,6 +68,7 @@ public class Treatments extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 			out.print(res);
+			System.out.println(res);
 		}
 		
 		else {
