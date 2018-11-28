@@ -40,9 +40,9 @@ public class Appointments extends HttpServlet {
 		String res = "";
 		
 		if(role.equals("doctor")) {
-			query = "SELECT treatment.treatment_id,appointment_id,patient_id,appointment.start_time::time AS start_time "
-					+ "FROM treatment,appointment "
-					+ "WHERE treatment.treatment_id = appointment.treatment_id "
+			query = "SELECT treatment.treatment_id,appointment_id,name,appointment.start_time::time AS start_time "
+					+ "FROM treatment,appointment, users "
+					+ "WHERE userid = treatment.patient_id and treatment.treatment_id = appointment.treatment_id "
 					+ "AND appointment.start_time::date = now()::date AND appointment.start_time::time >= now()::time AND "
 					+ "doctor_id = ?;";
 		}

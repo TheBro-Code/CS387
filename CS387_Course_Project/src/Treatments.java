@@ -57,9 +57,9 @@ public class Treatments extends HttpServlet {
 						+ "WHERE doctor_id = ? AND end_time IS NOT NULL";	
 			}
 			else {
-				query = "SELECT treatment_id, doctor_id,start_time,end_time "
-						+ "FROM treatment "
-						+ "WHERE patient_id = ? AND end_time IS NOT NULL";
+				query = "SELECT treatment_id, doctor_id, users.name, start_time,end_time "
+						+ "FROM treatment, users "
+						+ "WHERE userid = doctor_id and patient_id = ? AND end_time IS NOT NULL";
 			}
 			
 			res = DbHelper.executeQueryJson(query, 
@@ -86,9 +86,9 @@ public class Treatments extends HttpServlet {
 						+ "( SELECT t.treatment_id, doctor_id, t.start_time, a.start_time, rank() over (PARTITION BY t.treatment_id ORDER BY a.start_time DESC) "
 						+ "FROM treatment t, appointment a "
 						+ "WHERE t.treatment_id = a.treatment_id AND patient_id = ? AND end_time IS NULL) "
-						+ "SELECT treatment_id, doctor_id, start_time, next_appointment "
-						+ "FROM treatment_helper "
-						+ "WHERE rank = 1;";
+						+ "SELECT treatment_id, doctor_id, name, start_time, next_appointment "
+						+ "FROM treatment_helper, users "
+						+ "WHERE doctor_id = userid and rank = 1;";
 			}
 			
 			res = DbHelper.executeQueryJson(query, 

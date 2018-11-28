@@ -81,7 +81,7 @@ create table appointment(
 );
 
 create table medicine(
-    medicine_id serial primary key,
+    medicine_id varchar(20) primary key,
     name varchar(20),
     retailer varchar(30),
     price_per_unit varchar(10),
@@ -93,7 +93,7 @@ create table medicine(
 
 create table prescription(
     appointment_id integer references appointment,
-    medicine_id integer references medicine,
+    medicine_id varchar(20) references medicine,
     quantity varchar(10),
     primary key (appointment_id, medicine_id)
 );
@@ -102,7 +102,7 @@ create table medicine_order(
    order_id serial primary key,
    quantity varchar(10),
    patient_id varchar(20) references patients,
-   medicine_id integer references medicine
+   medicine_id varchar(20) references medicine
 );
 
 create table feedback(
@@ -193,14 +193,14 @@ insert into appointment(treatment_id, reason_visit,start_time) values (4,'Stomac
 insert into appointment(treatment_id, reason_visit,start_time) values (5,'Stomach ache','2018-09-12 15:09');
 insert into appointment(treatment_id, reason_visit,start_time) values (5,'Stomach ache','2018-09-13 15:09');
 
-insert into medicine(name,retailer,price_per_unit,side_effects,disease,chronic_diseases,prescription_required) values ('Paracetamol','Apollo','25','sleeplessness','Fever','None','No');
-insert into medicine(name,retailer,price_per_unit,side_effects,disease,chronic_diseases,prescription_required) values ('Citrezine','Apollo','25','sleeplessness','Fever','None','Yes');
-insert into medicine(name,retailer,price_per_unit,side_effects,disease,chronic_diseases,prescription_required) values ('Recofast','Apollo','25','sleeplessness','Fever','None','No');
-insert into medicine(name,retailer,price_per_unit,side_effects,disease,chronic_diseases,prescription_required) values ('Strepsils','Apollo','25','sleeplessness','Cough','None','No');
+insert into medicine values ('50','Paracetamol','Apollo','25','sleeplessness','Fever','None','No');
+insert into medicine values ('15','Citrezine','Apollo','25','sleeplessness','Fever','None','Yes');
+insert into medicine values ('60','Recofast','Apollo','25','sleeplessness','Fever','None','No');
+insert into medicine values ('20','Strepsils','Apollo','25','sleeplessness','Cough','None','No');
 
-insert into prescription values (1,1,'3');
-insert into prescription values (1,2,'3');
-insert into prescription values (2,3,'3');
-insert into prescription values (3,4,'3');
-insert into prescription values (4,4,'3');
+-- insert into prescription values (1,,'3');
+-- insert into prescription values (1,,'3');
+-- insert into prescription values (2,3,'3');
+-- insert into prescription values (3,4,'3');
+-- insert into prescription values (4,4,'3');
 

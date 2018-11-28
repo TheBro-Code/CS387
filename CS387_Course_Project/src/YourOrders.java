@@ -45,7 +45,7 @@ public class YourOrders extends HttpServlet {
 		
 		String userid = (String)session.getAttribute("userid");
 		
-		String query = "select * from medicine_order where patient_id = ?;";
+		String query = "select * from medicine_order natural join medicine where patient_id = ?;";
 		String res = DbHelper.executeQueryJson(query, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING},
 				new String[] {userid});

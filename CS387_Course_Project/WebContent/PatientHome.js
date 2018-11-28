@@ -9,7 +9,7 @@ function loadHome()
 	
   Treatments = "<table id=\"trt_table\" class=\"display\">"
 	      + " <thead>" 
-	      + " <tr><th> </th> <th>TREATMENT ID</th> <th>DOCTOR_ID</th> <th>START TIME</th> <th>NEXT APPOINTMENT</th> <th> FEEDBACK </th> </tr>"  
+	      + " <tr><th> </th> <th>TREATMENT ID</th> <th>DOCTOR_ID</th><th>DOCTOR_NAME</th> <th>START TIME</th> <th>NEXT APPOINTMENT</th> <th> FEEDBACK </th> </tr>"  
 	      + " </thead>"
 	      + " </table>";
   
@@ -22,6 +22,8 @@ function loadHome()
   
   var ongoingTreat;
   
+  $('#appointment').html("");
+  
   $("#content").html(Treatments).promise().done(function()
 	  		{
 				  ongoingTreat = $("#trt_table").DataTable({
@@ -30,7 +32,7 @@ function loadHome()
 			                	"orderable":      false,
 			                	"data":           null,
 			                	"defaultContent": ''
-			            		},{data:"treatment_id"}, {data:"doctor_id"}, {data:"start_time"}, {data:"next_appointment"},
+			            		},{data:"treatment_id"},{data:"doctor_id"}, {data:"name"}, {data:"start_time"}, {data:"next_appointment"},
 			            		{
 						    		  data: null,
 						    		  render: function(data,type,row){
@@ -346,7 +348,7 @@ function viewProfileDetails(doctor_id)
 		  		+  "<span id = \"hospital1\"> </span><br>"
 		  		+  "<span id = \"start_work_time\"> </span><br>"
 		  		+  "<span id = \"end_work_time\"> </span><br>"
-		  		+  "<span id = \"hours\"> </span><br>"
+		  		+  "<span id = \"hours\"> </span>  "
 		  		+  "<span id = \"minutes\"> </span><br>"
 		  		+  "<span id = \"hospital_address\"> </span><br>"
 		  		+  "<span id = \"fees\"> </span><br>"
@@ -749,9 +751,9 @@ function orderit()
 		    xhttp.open("GET", "PlaceOrder?medicine_id=" + this.data()["medicine_id"] + "&quantity=" + Number(document.getElementById(this.data()["medicine_id"]).innerText), true);
 	//	    console.log(this.data()["medicine_id"] + " " + Number(document.getElementById(this.data()["medicine_id"]).innerText));
 		    xhttp.send();
-		    loadHome();
 	    }
 	});
+	loadHome();
 	
 }
 
@@ -871,7 +873,7 @@ function bookTreatmentUtil(doctor_id) {
 	  		var appointmentSlots = "<div><span>Date: <input type=\"text\" id=\"datepicker\"" +
 	  				" onchange=\"bookTreatmentUtil(" + doctor_id + ")\"></span><div><br>" +
 	  		"   <div>\n" + 
-			"		<span>Choose a time slot to book an appointment for "+ date + " </span>\n" + 
+			"		<span>Choose a time slot to book an appointment for "+ date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " </span>\n" + 
 			"	</div>\n" + 
 			"	<div>\n" + 
 			"		<div style=\"width: 100%\">\n" + 
@@ -1030,7 +1032,7 @@ function your_orders()
 {
 	Treatments = "<table id=\"trt_table\" class=\"display\">"
 	      + " <thead>" 
-	      + " <tr> <th>ORDER ID</th> <th>PATIENT ID</th> <th>MEDICINE ID</th> <th>QUANTITY</th></tr>"  
+	      + " <tr> <th>ORDER ID</th> <th>PATIENT ID</th> <th>MEDICINE NAME</th> <th>QUANTITY</th></tr>"  
 	      + " </thead>"
 	      + " </table>";
 
@@ -1039,7 +1041,7 @@ function your_orders()
 	$("#content").html(Treatments).promise().done(function()
 		  		{
 					  ongoingTreat = $("#trt_table").DataTable({
-					      columns: [{data:"order_id"}, {data:"patient_id"}, {data:"medicine_id"}, {data:"quantity"},
+					      columns: [{data:"order_id"}, {data:"patient_id"}, {data:"name"}, {data:"quantity"},
 				            		],
 						  ajax : {
 								url: "YourOrders",

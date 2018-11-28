@@ -1040,3 +1040,14 @@
 2018-11-28 09:39:09.559 IST [488] ERROR:  invalid value "In" for "hh"
 2018-11-28 09:39:09.559 IST [488] DETAIL:  Value must be an integer.
 2018-11-28 09:39:09.559 IST [488] STATEMENT:  Insert into appointment(treatment_id, reason_visit, start_time) values ($1,$2,to_timestamp($3, 'YYYY-MM-DD hh:mi:ss AM')::timestamp without time zone)
+2018-11-28 10:44:40.251 IST [4251] ERROR:  column "docotr_id" does not exist at character 430
+2018-11-28 10:44:40.251 IST [4251] HINT:  Perhaps you meant to reference the column "treatment_helper.doctor_id".
+2018-11-28 10:44:40.251 IST [4251] STATEMENT:  WITH treatment_helper(treatment_id,doctor_id,start_time,next_appointment,rank) AS ( SELECT t.treatment_id, doctor_id, t.start_time, a.start_time, rank() over (PARTITION BY t.treatment_id ORDER BY a.start_time DESC) FROM treatment t, appointment a WHERE t.treatment_id = a.treatment_id AND patient_id = $1 AND end_time IS NULL) SELECT treatment_id, doctor_id, name, start_time, next_appointment FROM treatment_helper, users WHERE docotr_id = userid and rank = 1
+2018-11-28 10:44:51.021 IST [4266] ERROR:  column "docotr_id" does not exist at character 430
+2018-11-28 10:44:51.021 IST [4266] HINT:  Perhaps you meant to reference the column "treatment_helper.doctor_id".
+2018-11-28 10:44:51.021 IST [4266] STATEMENT:  WITH treatment_helper(treatment_id,doctor_id,start_time,next_appointment,rank) AS ( SELECT t.treatment_id, doctor_id, t.start_time, a.start_time, rank() over (PARTITION BY t.treatment_id ORDER BY a.start_time DESC) FROM treatment t, appointment a WHERE t.treatment_id = a.treatment_id AND patient_id = $1 AND end_time IS NULL) SELECT treatment_id, doctor_id, name, start_time, next_appointment FROM treatment_helper, users WHERE docotr_id = userid and rank = 1
+2018-11-28 10:45:05.462 IST [4292] ERROR:  column "docotr_id" does not exist at character 430
+2018-11-28 10:45:05.462 IST [4292] HINT:  Perhaps you meant to reference the column "treatment_helper.doctor_id".
+2018-11-28 10:45:05.462 IST [4292] STATEMENT:  WITH treatment_helper(treatment_id,doctor_id,start_time,next_appointment,rank) AS ( SELECT t.treatment_id, doctor_id, t.start_time, a.start_time, rank() over (PARTITION BY t.treatment_id ORDER BY a.start_time DESC) FROM treatment t, appointment a WHERE t.treatment_id = a.treatment_id AND patient_id = $1 AND end_time IS NULL) SELECT treatment_id, doctor_id, name, start_time, next_appointment FROM treatment_helper, users WHERE docotr_id = userid and rank = 1
+2018-11-28 10:54:43.502 IST [2365] ERROR:  relation "patient" does not exist at character 15
+2018-11-28 10:54:43.502 IST [2365] STATEMENT:  select * from patient;

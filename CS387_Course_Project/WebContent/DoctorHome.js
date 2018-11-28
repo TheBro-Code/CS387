@@ -8,7 +8,7 @@ function loadHome()
 {
   Appointments = "<table id=\"appt_table\" class=\"display\">"
 	      + " <thead>" 
-	      + " <tr> <th> </th><th>APPOINTMENT ID</th> <th>PATIENT ID</th> <th>START TIME</th> <th> COMMENTS</th> <th> PRESCRIPTIONS </th> <th>TREATMENT ID</th></tr>"  
+	      + " <tr> <th> </th><th>APPOINTMENT ID</th> <th>PATIENT NAME</th> <th>START TIME</th> <th> COMMENTS</th> <th> PRESCRIPTIONS </th> <th>TREATMENT ID</th></tr>"  
 	      + " </thead>"
 	      + " </table>";
   var upcoming_app;
@@ -20,7 +20,7 @@ function loadHome()
 		                	"orderable":      false,
 		                	"data":           null,
 		                	"defaultContent": ''
-		            		},{data:"appointment_id"}, {data:"patient_id"}, {data:"start_time"},
+		            		},{data:"appointment_id"}, {data:"name"}, {data:"start_time"},
 				    	  {
 			    		  data: null,
 			    		  render: function(data,type,row){

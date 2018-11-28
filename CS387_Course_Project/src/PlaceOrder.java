@@ -37,7 +37,6 @@ public class PlaceOrder extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("userid") == null) { //not logged in
 			response.sendRedirect("LoginServlet");
@@ -47,12 +46,13 @@ public class PlaceOrder extends HttpServlet {
 		String medicine_id = request.getParameter("medicine_id");
 		String quantity = request.getParameter("quantity");
 		
+		
 		System.out.println("from place_order:" + medicine_id +  " " + quantity);
 		
 		String query = "insert into medicine_order (medicine_id,patient_id,quantity) values (?,?,?);";
 		String json = DbHelper.executeUpdateJson(query, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,DbHelper.ParamType.STRING,  DbHelper.ParamType.STRING},
-				new String[] {medicine_id,userid,quantity});
+				new Object[] {medicine_id,userid,quantity});
 		
 		System.out.println(json);
 		
