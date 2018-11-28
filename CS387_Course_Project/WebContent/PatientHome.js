@@ -616,7 +616,7 @@ function order_medicines(){
 	      + " <thead>" 
 	      + " <tr> <th>MEDICINE ID</th> <th>NAME</th> <th>RETAILER</th> <th>PRICE PER UNIT</th> <th>SIDE EFFECTS</th> <th>DISEASE</th> <th>PRESCRIPTION REQUIRED</th> </tr>"  
 	      + " </thead>"
-	      + " </table>";
+	      + " </table>" ;
 			
 	
 
@@ -687,6 +687,7 @@ function order_medicines(){
 	});
 }
 
+
 function searchMedicine(name,disease)
 {
 	console.log(disease);
@@ -695,7 +696,8 @@ function searchMedicine(name,disease)
 	      + " <tr> <th>MEDICINE ID</th> <th>NAME</th> <th>RETAILER</th> <th>PRICE PER UNIT</th> <th>SIDE EFFECTS</th> " +
 	      		"<th>DISEASE</th> <th>CHRONIC DISEASE</th> <th>PRESCRIPTION REQUIRED</th> <th>QUANTITY</th> </tr>"  
 	      + " </thead>"
-	      + " </table>";
+	      + " </table>"
+	      +	"<button id=\"OrderIt\" onclick=\"orderit()\"> Order </button>";
 	
 		var listMedicines;
 	  	$("#content").html(SearchMedicines).promise().done(function()
@@ -722,6 +724,35 @@ function searchMedicine(name,disease)
 					}
 			  });
   		});
+}
+
+function orderit()
+{
+	
+//	$('#example').DataTable();.rows().iterator( 'row', function ( context, index ) {
+//	    console.log($( this.row( index ).node() ));
+//	} );
+	
+	$('#med_table').DataTable().rows().every(function(){
+//	    console.log(this.data()["medicine_id"]);
+	    var xhttp = new XMLHttpRequest();
+	    xhttp.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200)
+	       {
+	    	   
+	       }
+	       else{
+	    	   
+	       }
+	    }
+	    if(Number(document.getElementById(this.data()["medicine_id"]).innerText) > 0){
+		    xhttp.open("GET", "PlaceOrder?medicine_id=" + this.data()["medicine_id"] + "&quantity=" + Number(document.getElementById(this.data()["medicine_id"]).innerText), true);
+	//	    console.log(this.data()["medicine_id"] + " " + Number(document.getElementById(this.data()["medicine_id"]).innerText));
+		    xhttp.send();
+		    loadHome();
+	    }
+	});
+	
 }
 
 function inc(id)
@@ -995,3 +1026,27 @@ function formclick()
     closeForm();
 }
 
+function your_orders()
+{
+	Treatments = "<table id=\"trt_table\" class=\"display\">"
+	      + " <thead>" 
+	      + " <tr> <th>ORDER ID</th> <th>PATIENT ID</th> <th>MEDICINE ID</th> <th>QUANTITY</th></tr>"  
+	      + " </thead>"
+	      + " </table>";
+
+	var ongoingTreat;
+	
+	$("#content").html(Treatments).promise().done(function()
+		  		{
+					  ongoingTreat = $("#trt_table").DataTable({
+					      columns: [{data:"order_id"}, {data:"patient_id"}, {data:"medicine_id"}, {data:"quantity"},
+				            		],
+						  ajax : {
+								url: "YourOrders",
+								data: {
+
+								}
+							}
+					  });			        
+		  		});
+}
