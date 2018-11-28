@@ -99,7 +99,7 @@ create table prescription(
 );
 
 create table medicine_order(
-   order_id varchar(20) primary key,
+   order_id serial primary key,
    quantity varchar(10),
    patient_id varchar(20) references patients,
    medicine_id varchar(20) references medicine

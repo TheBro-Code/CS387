@@ -604,7 +604,7 @@ function exec_update()
 			"&hours=" + slot_time_hours +
 			"&minutes=" + slot_time_mins + 
 			"&hospital=" + hospital +
-			"&hospital_address=" + hospital_address +
+			"&hospital_address=" + hospital_address +	
 			"&fees=" + fees
 			, true);
 	xhttp.send();
