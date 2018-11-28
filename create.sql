@@ -9,11 +9,11 @@ Drop table treatment;
 Drop table doctors;
 Drop table patients;
 Drop table users;
-Drop table colleges;
+-- Drop table colleges;
 
-create table colleges (
-    name varchar(100) primary key
-);
+-- create table colleges (
+--     name varchar(100) primary key
+-- );
 
 create table users(
     userid varchar(10) primary key,
@@ -49,7 +49,7 @@ create table doctors(
     doctor_id varchar(10) references users(userid)  primary key,
     qualifications varchar(20),
     speciality varchar(20),
-    college varchar(100) references colleges(name),
+    college varchar(100),
     completion varchar(10),
     experience varchar(10),
     regnum varchar(20) unique,
@@ -146,11 +146,11 @@ insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone
 insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('210','hell','holland','male','A-20','Govindpur','Maharashtra','302018','9876543270','1234567890','O+','15/10/1975', '44');
 insert into users(userid,passwd,name,gender,house_no,street,state,pin_code,phone_no,emergency_no,blood_type,DOB,age) values ('220','hell','yoyo','male','A-20','Govindpur','Maharashtra','302018','9876543280','1234567890','B+','15/10/1975', '44');
 
-insert into colleges values('AIIMS, Delhi');
-insert into colleges values('AIIMS, Jodhpur');
-insert into colleges values('Sawai Man Singh, Jaipur');
-insert into colleges values('AFMC, Pune');
-insert into colleges values('AIIMS, Bhuvaneshwar');
+-- insert into colleges values('AIIMS, Delhi');
+-- insert into colleges values('AIIMS, Jodhpur');
+-- insert into colleges values('Sawai Man Singh, Jaipur');
+-- insert into colleges values('AFMC, Pune');
+-- insert into colleges values('AIIMS, Bhuvaneshwar');
 
 insert into doctors values ('123','MBBS','Dentist', 'AIIMS, Delhi','1998', '20', 'R1', 'MCI', '1995', '09:00-13:00,14:00-17:00,20:00-22:00','11:00-13:00,14:00-17:00','45 mins','Jc clinic','Meera road','250','5');
 insert into doctors values ('124','MD','General Physician', 'AIIMS, Delhi','1998', '20', 'R2', 'MCI', '1997', '09:00-13:00,14:00-17:00,20:00-22:00','11:00-13:00,14:00-17:00','45 mins','Jc clinic','Meera road','250','5');

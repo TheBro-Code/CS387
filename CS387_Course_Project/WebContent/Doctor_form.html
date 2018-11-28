@@ -14,7 +14,7 @@
 }
 
 body {
-	background-color: #f1f1f1;
+	background-color: #1e90ff;
 }
 
 #regForm {
@@ -49,7 +49,7 @@ input.invalid {
 }
 
 button {
-	background-color: #4CAF50;
+	background-color: DodgerBlue;
 	color: #ffffff;
 	border: none;
 	padding: 10px 20px;
@@ -89,7 +89,7 @@ button:hover {
 </style>
 <title>Doctor Signup</title>
 </head>
-<body>
+<body bgcolor="#1e90ff">
 
 	<form id="regForm" action="DoctorSignup" method="Post">
 		<h1>General Information</h1>
@@ -120,7 +120,8 @@ button:hover {
 					name="phoneno">
 			</p>
 		</div>
-		<div class="tab">
+		
+<div class="tab">
 			DEGREE:
 			<p>
 				<select name="degree">
@@ -195,7 +196,7 @@ button:hover {
 				<input placeholder="locality..." oninput="this.className = ''"
 					name="locality">
 			</p>
-		</div>
+		</div> 
 		<div class="tab">
 			APPOINTMENT FEES:
 			<p>
@@ -204,8 +205,57 @@ button:hover {
 			</p>
 			WORKING HOURS:
 			<p>
-				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="starting_hours">
-				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="ending_hours">
+			WEEKDAYS:<br>
+				<div>
+				Morning Slot (6:00-12:00):
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s1" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e1" style="width:auto">
+				</div>
+				<div>
+				Afternoon slot (12:00-17:00):
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s2" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e2" style="width:auto">
+				</div>
+				<div>
+				Evening slot (17:00-20:00)
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s3" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e3" style="width:auto">
+				</div>
+				<div>
+				Night Slot:(20:00-00:00)
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s4" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e4" style="width:auto">
+				</div>
+				<br>
+			WEEKENDS:<br><br>
+				<div>
+				Morning Slot (6:00-12:00):
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s5" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e5" style="width:auto">
+				</div>
+				<div>
+				Afternoon slot (12:00-17:00):
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s6" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e6" style="width:auto">
+				</div>
+				<div>
+				Evening slot (17:00-20:00)
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s7" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e7" style="width:auto">
+				</div>
+				<div>
+				Night Slot:(20:00-00:00)
+				<input placeholder="Starting hrs...(hh:mm)" oninput="this.className = ''" name="s8" style="width:auto">
+				-
+				<input placeholder="Ending hrs...(hh:mm)" oninput="this.className = ''"	name="e8" style="width:auto">
+				</div>
 			</p>
 			SLOT LENGTH:
 			<p>

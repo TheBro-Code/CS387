@@ -82,15 +82,57 @@ public class DoctorSignup extends HttpServlet {
 		String city = request.getParameter("city");
 		String locality = request.getParameter("locality");
 		int fees = Integer.parseInt(request.getParameter("fees"));
-		String start  = request.getParameter("starting_hours");
-		String end  = request.getParameter("ending_hours");
+		String s1  = request.getParameter("s1");
+		String e1  = request.getParameter("e1");
+		String s2  = request.getParameter("s2");
+		String e2  = request.getParameter("e2");
+		String s3  = request.getParameter("s3");
+		String e3  = request.getParameter("e3");
+		String s4  = request.getParameter("s4");
+		String e4  = request.getParameter("e4");
+		String s5  = request.getParameter("s5");
+		String e5  = request.getParameter("e5");
+		String s6  = request.getParameter("s6");
+		String e6  = request.getParameter("e6");
+		String s7  = request.getParameter("s7");
+		String e7  = request.getParameter("e7");
+		String s8  = request.getParameter("s8");
+		String e8  = request.getParameter("e8");
 		String slot_length  = request.getParameter("slot");
-		String hospital_address = locality + ", " + city;	
+		String hospital_address = locality + ", " + city;
+		String weekday_hours = "";
+		if(!(s1.equals("") && e1.equals(""))) {
+			weekday_hours += s1 + "-" + e1 + ",";
+		}
+		if(!(s2.equals("") && e2.equals(""))) {
+			weekday_hours += s2 + "-" + e2 + ",";
+		}
+		if(!(s3.equals("") && e3.equals(""))) {
+			weekday_hours += s3 + "-" + e3  + ",";;
+		}
+		if(!(s4.equals("") && e4.equals(""))) {
+			weekday_hours += s4 + "-" + e4  + ",";;
+		}
+		
+		
+		String weekend_hours = "";	
+		if(!(s5.equals("") && e5.equals(""))) {
+			weekend_hours += s5 + "-" + e5  + ",";;
+		}
+		if(!(s6.equals("") && e6.equals(""))) {
+			weekend_hours += s6 + "-" + e6  + ",";;
+		}
+		if(!(s7.equals("") && e7.equals(""))) {
+			weekend_hours += s7 + "-" + e7  + ",";;
+		}
+		if(!(s8.equals("") && e7.equals(""))) {
+			weekend_hours += s8 + "-" + e8  + ",";;
+		}
 		
 		String query1 = "Insert into users(userid, passwd, name, phone_no) values (?, ?, ?, ?)";
 		String query2 = "Insert into doctors(doctor_id, qualifications, speciality, college, completion, "
-				+ "experience, regnum, regcouncil, regyear, start_time, end_time, slot_time, hospital, hospital_address, "
-				+ "fees) values (?, ?, ?, ?, ?, ?, ?, ?, ?, to_timestamp(?,\'HH24:MM\')::time, to_timestamp(?,\'HH24:MM\')::time, ?::interval, ?, ?, ?)";
+				+ "experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, "
+				+ "fees) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?::interval, ?, ?, ?)";
 		
 		try (Connection conn = DriverManager.getConnection(Config.url, Config.user, Config.password))
         {
@@ -121,8 +163,8 @@ public class DoctorSignup extends HttpServlet {
 				stmt1.setString(7, regnum);
 				stmt1.setString(8, regcouncil);
 				stmt1.setInt(9, regyear);
-				stmt1.setString(10, start);
-				stmt1.setString(11, end);
+				stmt1.setString(10, weekday_hours);
+				stmt1.setString(11, weekend_hours);
 				stmt1.setString(12, slot_length + " mins");
 				stmt1.setString(13, clinic);
 				stmt1.setString(14, hospital_address);

@@ -341,26 +341,26 @@ function searchDoctor(name,hospital,locality,qualifications)
 
 function viewProfileDetails(doctor_id)
 {
-	profile_Det = "<div id = \"name1\"> </div>"
-		  		+  "<div id = \"gender\"> </div>"
-		  		+  "<div id = \"hospital1\"> </div>"
-		  		+  "<div id = \"start_work_time\"> </div>"
-		  		+  "<div id = \"end_work_time\"> </div>"
-		  		+  "<div id = \"hours\"> </div>"
-		  		+  "<div id = \"minutes\"> </div>"
-		  		+  "<div id = \"hospital_address\"> </div>"
-		  		+  "<div id = \"fees\"> </div>"
-		  		+  "<div id = \"rating\"> </div>"
-		  		+  "<div id = \"age1\"> </div>"
-		  		+  "<div id = \"doctor_id\"> </div>"
-		  		+  "<div id = \"qualifications1\"> </div>"
-		  		+  "<div id = \"speciality\"> </div>"
-		  		+  "<div id = \"college\"> </div>"
-		  		+  "<div id = \"completion\"> </div>"
-		  		+  "<div id = \"experience\"> </div>"
-		  		+  "<div id = \"regnum\"> </div>"
-		  		+ "<div id = \"regyear\"> </div>"
-		  		+  "<div id = \"regcouncil\"> </div> <br>"
+	profile_Det = "<span id = \"name1\"> </span><br>"
+		  		+  "<span id = \"gender\"> </span><br>"
+		  		+  "<span id = \"hospital1\"> </span><br>"
+		  		+  "<span id = \"start_work_time\"> </span><br>"
+		  		+  "<span id = \"end_work_time\"> </span><br>"
+		  		+  "<span id = \"hours\"> </span><br>"
+		  		+  "<span id = \"minutes\"> </span><br>"
+		  		+  "<span id = \"hospital_address\"> </span><br>"
+		  		+  "<span id = \"fees\"> </span><br>"
+		  		+  "<span id = \"rating\"> </span><br>"
+		  		+  "<span id = \"age1\"> </span><br>"
+		  		+  "<span id = \"doctor_id\"> </span><br>"
+		  		+  "<span id = \"qualifications1\"> </span><br>"
+		  		+  "<span id = \"speciality\"> </span><br>"
+		  		+  "<span id = \"college\"> </span><br>"
+		  		+  "<span id = \"completion\"> </span><br>"
+		  		+  "<span id = \"experience\"> </span><br><br>"
+//		  		+  "<div id = \"regnum\"> </div>"
+//		  		+ "<div id = \"regyear\"> </div>"
+//		  		+  "<div id = \"regcouncil\"> </div> <br>"
 		  		+ "<button id=\"bookTreatment\" onclick=\"book_treatment(" + doctor_id + ")\">Get an Appoitment</button>";
 	
 	var listAppointments;
@@ -381,9 +381,9 @@ function viewProfileDetails(doctor_id)
 	        	document.getElementById("college").innerHTML = "College: " + obj.data[0].college;
 	        	document.getElementById("completion").innerHTML = "Completion: " + obj.data[0].completion;
 	        	document.getElementById("experience").innerHTML = "Experience: " + obj.data[0].experience;
-	        	document.getElementById("regnum").innerHTML = "Regnum: " + obj.data[0].regnum;
-	        	document.getElementById("regcouncil").innerHTML = "Regcouncil: " + obj.data[0].regcouncil;
-	        	document.getElementById("regyear").innerHTML = "Regyear: " + obj.data[0].regyear;
+//	        	document.getElementById("regnum").innerHTML = "Regnum: " + obj.data[0].regnum;
+//	        	document.getElementById("regcouncil").innerHTML = "Regcouncil: " + obj.data[0].regcouncil;
+//	        	document.getElementById("regyear").innerHTML = "Regyear: " + obj.data[0].regyear;
 	        	document.getElementById("start_work_time").innerHTML = "Working Hours (Weekdays): " + obj.data[0].weekday_hours;
 	        	document.getElementById("end_work_time").innerHTML = "Working Hours (Weekends): " + obj.data[0].weekend_hours;
 	        	document.getElementById("hours").innerHTML = "Hours: " + parseSlotTimeHour(obj.data[0].slot_time);

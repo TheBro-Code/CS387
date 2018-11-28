@@ -1013,3 +1013,30 @@
 2018-11-28 07:25:59.485 IST [26041] STATEMENT:  Insert into conversations(patient_id, doctor_id) values($1, $2)
 2018-11-28 07:29:19.812 IST [26241] ERROR:  relation "conversaton" does not exist at character 15
 2018-11-28 07:29:19.812 IST [26241] STATEMENT:  Select * from conversaton where patient_id = $1 and doctor_id = $2
+2018-11-28 09:09:16.838 IST [31515] ERROR:  insert or update on table "doctors" violates foreign key constraint "doctors_college_fkey"
+2018-11-28 09:09:16.838 IST [31515] DETAIL:  Key (college)=(arfafrg) is not present in table "colleges".
+2018-11-28 09:09:16.838 IST [31515] STATEMENT:  Insert into doctors(doctor_id, qualifications, speciality, college, completion, experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, fees) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp($10,'HH24:MM')::time, to_timestamp($11,'HH24:MM')::time, $12::interval, $13, $14, $15)
+2018-11-28 09:11:14.723 IST [31595] ERROR:  duplicate key value violates unique constraint "users_pkey"
+2018-11-28 09:11:14.723 IST [31595] DETAIL:  Key (userid)=(169) already exists.
+2018-11-28 09:11:14.723 IST [31595] STATEMENT:  Insert into users(userid, passwd, name, phone_no) values ($1, $2, $3, $4)
+2018-11-28 09:11:38.165 IST [31630] ERROR:  insert or update on table "doctors" violates foreign key constraint "doctors_college_fkey"
+2018-11-28 09:11:38.165 IST [31630] DETAIL:  Key (college)=(faf) is not present in table "colleges".
+2018-11-28 09:11:38.165 IST [31630] STATEMENT:  Insert into doctors(doctor_id, qualifications, speciality, college, completion, experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, fees) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp($10,'HH24:MM')::time, to_timestamp($11,'HH24:MM')::time, $12::interval, $13, $14, $15)
+2018-11-28 09:15:10.553 IST [31844] ERROR:  invalid value "-," for "HH24"
+2018-11-28 09:15:10.553 IST [31844] DETAIL:  Value must be an integer.
+2018-11-28 09:15:10.553 IST [31844] STATEMENT:  Insert into doctors(doctor_id, qualifications, speciality, college, completion, experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, fees) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp($10,'HH24:MM')::time, to_timestamp($11,'HH24:MM')::time, $12::interval, $13, $14, $15)
+2018-11-28 09:16:35.377 IST [31882] ERROR:  invalid value "-," for "HH24"
+2018-11-28 09:16:35.377 IST [31882] DETAIL:  Value must be an integer.
+2018-11-28 09:16:35.377 IST [31882] STATEMENT:  Insert into doctors(doctor_id, qualifications, speciality, college, completion, experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, fees) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp($10,'HH24:MM')::time, to_timestamp($11,'HH24:MM')::time, $12::interval, $13, $14, $15)
+2018-11-28 09:18:23.402 IST [31936] ERROR:  invalid value "-," for "HH24"
+2018-11-28 09:18:23.402 IST [31936] DETAIL:  Value must be an integer.
+2018-11-28 09:18:23.402 IST [31936] STATEMENT:  Insert into doctors(doctor_id, qualifications, speciality, college, completion, experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, fees) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp($10,'HH24:MM')::time, to_timestamp($11,'HH24:MM')::time, $12::interval, $13, $14, $15)
+2018-11-28 09:33:03.432 IST [32546] ERROR:  duplicate key value violates unique constraint "doctors_regnum_key"
+2018-11-28 09:33:03.432 IST [32546] DETAIL:  Key (regnum)=(9) already exists.
+2018-11-28 09:33:03.432 IST [32546] STATEMENT:  Insert into doctors(doctor_id, qualifications, speciality, college, completion, experience, regnum, regcouncil, regyear, weekday_hours, weekend_hours, slot_time, hospital, hospital_address, fees) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12::interval, $13, $14, $15)
+2018-11-28 09:39:09.556 IST [488] ERROR:  invalid value "In" for "hh"
+2018-11-28 09:39:09.556 IST [488] DETAIL:  Value must be an integer.
+2018-11-28 09:39:09.556 IST [488] STATEMENT:  Insert into Treatment(patient_id, doctor_id, start_time) values ($1, $2, to_timestamp($3, 'YYYY-MM-DD hh:mi:ss AM')::timestamp without time zone)
+2018-11-28 09:39:09.559 IST [488] ERROR:  invalid value "In" for "hh"
+2018-11-28 09:39:09.559 IST [488] DETAIL:  Value must be an integer.
+2018-11-28 09:39:09.559 IST [488] STATEMENT:  Insert into appointment(treatment_id, reason_visit, start_time) values ($1,$2,to_timestamp($3, 'YYYY-MM-DD hh:mi:ss AM')::timestamp without time zone)
