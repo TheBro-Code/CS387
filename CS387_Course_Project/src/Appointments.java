@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -11,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class AvailableAppointments
+ * Servlet implementation class Appointments
  */
-@WebServlet("/AvailableAppointments")
-public class AvailableAppointments extends HttpServlet {
+@WebServlet("/Appointments")
+public class Appointments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AvailableAppointments() {
+    public Appointments() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,29 +33,34 @@ public class AvailableAppointments extends HttpServlet {
 			response.sendRedirect("LoginServlet");
 		}
 		
-		String doctor_id = request.getParameter("doctor_id");
-		String appointment_date = request.getParameter("appointment_date");
+		String userid = (String) session.getAttribute("userid");
+		String role = (String) session.getAttribute("role");
 		
-		String query = "WITH RECURSIVE free_slots(start_time) AS ( "
-				+ "SELECT start_time "
-				+ "FROM doctors "
-				+ "WHERE doctor_id = ? "
-				+ "UNION "
-				+ "SELECT free_slots.start_time + doctors.slot_time "
-				+ "FROM free_slots, doctors "
-				+ "WHERE doctor_id = ? AND free_slots.start_time + doctors.slot_time < doctors.end_time) "
-				+ "SELECT free_slots.start_time FROM free_slots "
-				+ "WHERE NOT EXISTS (SELECT * "
-				+ "FROM appointment, treatment "
-				+ "WHERE appointment.treatment_id = treatment.treatment_id AND treatment.doctor_id = ? AND appointment.start_time::time = free_slots.start_time "
-				+ "AND appointment.start_time::date = TO_DATE(?,\'YYYY-MM-DD\'))";
+		String query = "";
+		String res = "";
 		
-		String res = DbHelper.executeQueryJson(query, 
-				new DbHelper.ParamType[] {DbHelper.ParamType.STRING,DbHelper.ParamType.STRING,DbHelper.ParamType.STRING,DbHelper.ParamType.STRING}, 
-				new String[] {doctor_id,doctor_id,doctor_id,appointment_date});
+		if(role.equals("doctor")) {
+			query = "SELECT treatment.treatment_id,appointment_id,patient_id,appointment.start_time::time AS start_time "
+					+ "FROM treatment,appointment "
+					+ "WHERE treatment.treatment_id = appointment.treatment_id "
+					+ "AND appointment.start_time::date = now()::date AND appointment.start_time::time >= now()::time AND "
+					+ "doctor_id = ?;";
+		}
+		else {
+			query = "SELECT treatment.treatment_id,appointment_id,doctor_id,appointment.start_time::time AS start_time "
+					+ "FROM treatment,appointment "
+					+ "WHERE treatment.treatment_id = appointment.treatment_id "
+					+ "AND appointment.start_time::date = now()::date AND "
+					+ "patient_id = ?;";
+		}
+		
+		res = DbHelper.executeQueryJson(query, 
+				new DbHelper.ParamType[] {DbHelper.ParamType.STRING}, 
+				new String[] {userid});
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);
+		System.out.println(res);
 	}
 
 	/**

@@ -1,0 +1,193 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#navbar li {
+    float: left;
+}
+
+#navbar li:hover{
+	background-color: RoyalBlue;
+}
+
+li .btn {
+	font-family: "Roboto", sans-serif;
+    padding: 14px 16px;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+	border: none;
+	background: none;
+    font-size: 20px;
+}
+
+li .btn:hover {
+    color: white;
+}
+
+div {
+	background-color: RoyalBlue;
+	color: white;
+	font-family: "Roboto", sans-serif;
+    padding: 14px 16px;	
+}
+
+button{
+	border: none;
+	background-color: DodgerBlue;
+	color: black;
+}
+
+#hide_order button{
+	border: none;
+	background-color: DodgerBlue;
+	color: white;
+}
+
+input{
+	color: black;
+	margin: 14px 16px;
+}
+
+td.details-control {
+	cursor: pointer;
+}
+
+tr.shown td.details-control{
+	
+}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 500px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+
+
+
+
+.rating {
+    display: inline-block;
+}
+
+.rating:not(:checked) > input {
+    display:none;
+}
+
+.rating:not(:checked) > label {
+    float: right;
+    width: 28px;
+    padding: 0 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 200%;
+    line-height: 1.2;
+    color: #ddd;
+    filter: saturate(0);
+    -webkit-filter: saturate(0);
+    -moz-filter: saturate(0);
+    -o-filter: saturate(0);
+    
+}
+
+.rating:not(:checked) > label:before {
+    content: url("http://i.imgur.com/1dT6Fai.png") ' ';
+}
+
+.rating > input:checked ~ label {
+    filter: saturate(1);
+    -webkit-filter: saturate(1);
+	-moz-filter: saturate(1);
+    -o-filter: saturate(1);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    filter: hue-rotate(-50deg);
+    -webkit-filter: hue-rotate(-50deg);
+	-moz-filter: hue-rotate(-50deg);
+    -o-filter:hue-rotate(-50deg);
+    
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    filter: hue-rotate(-50deg);
+    -webkit-filter: hue-rotate(-50deg);
+	-moz-filter: hue-rotate(-50deg);
+    -o-filter:hue-rotate(-50deg);
+	
+}

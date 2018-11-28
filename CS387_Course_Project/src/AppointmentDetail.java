@@ -46,11 +46,14 @@ public class AppointmentDetail extends HttpServlet {
 		String appointment_id = (String) request.getParameter("appointment_id");
 		
 		int a_id = Integer.parseInt(appointment_id);
-		System.out.println("Appointment ID clicked is " + a_id);
+		// System.out.println("Appointment ID clicked is " + a_id);
+
 		
-		String query = "SELECT a.appointment_id, reason_visit, start_time, comments, medicine_id, quantity "
-				+ "FROM appointment a, prescription p "
-				+ "WHERE a.appointment_id = p.appointment_id AND a.appointment_id = ?";
+		// System.out.println("From appdetail: " + appointment_id);
+		
+		String query = "SELECT * "
+				+ "FROM appointment a, prescription p, medicine c "
+				+ "WHERE a.appointment_id = p.appointment_id AND c.medicine_id = p.medicine_id AND a.appointment_id = ?";
 		
 		String res = DbHelper.executeQueryJson(query, 
 				new DbHelper.ParamType[] {DbHelper.ParamType.INT}, 
@@ -58,5 +61,7 @@ public class AppointmentDetail extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.print(res);
+		
+		System.out.println("appDetail: " + res);
 	}
 }

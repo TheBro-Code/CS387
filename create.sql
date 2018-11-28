@@ -170,6 +170,7 @@ insert into patients values ('200','80/120','100','Yes','No','None','None','None
 insert into patients values ('210','80/120','100','Yes','No','None','None','None','None','None');
 insert into patients values ('220','80/120','100','Yes','No','None','None','None','None','None');
 
+
 insert into treatment(patient_id, doctor_id) values ('130','123');
 insert into treatment(patient_id, doctor_id) values ('140','123');
 insert into treatment(patient_id, doctor_id) values ('150','124');
@@ -203,10 +204,3 @@ insert into prescription values (2,3,'3');
 insert into prescription values (3,4,'3');
 insert into prescription values (4,4,'3');
 
--- insert into conversations(patient_id, doctor_id) values('130', '128');
--- insert into conversations(patient_id, doctor_id) values('130', '126');
--- insert into conversations(patient_id, doctor_id) values('130', '127');
-
--- insert into posts(thread_id, userid, timestamp, text) values(1, 130, now(), 'doctor I am sick :(');
--- insert into posts(thread_id, userid, timestamp, text) values(1, 128, now(), 'what you got?');
--- insert into posts(thread_id, userid, timestamp, text) values(1, 130, now(), 'Ligma');

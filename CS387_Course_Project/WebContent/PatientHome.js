@@ -6,24 +6,40 @@ $(document).ready(function() {
 
 function loadHome()
 {
+	
   Treatments = "<table id=\"trt_table\" class=\"display\">"
 	      + " <thead>" 
-	      + " <tr> <th>TREATMENT ID</th> <th>DOCTOR_ID</th> <th>START TIME</th> <th>NEXT APPOINTMENT</th> </tr>"  
+	      + " <tr><th> </th> <th>TREATMENT ID</th> <th>DOCTOR_ID</th> <th>START TIME</th> <th>NEXT APPOINTMENT</th> <th> FEEDBACK </th> </tr>"  
 	      + " </thead>"
 	      + " </table>";
   
-  init_bar = "Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
+  init_bar ="<center><h1>Find a Doctor </h1><br><br>"+ 
+	  		"Name : <input type=\"text\" id = \"name\" name = \"name\"> " +
 			"Hospital : <input type=\"text\" id = \"hospital\" name = \"hospital\"> " +
 			"Locality : <input type=\"text\" id = \"locality\" name = \"locality\"> " +
 			"Qualifications : <input type=\"text\" id = \"qualifications\" name = \"qualifications\"> " +
-		    "<button id=\"search_doc\"> Submit </button> <br> <br>";
+		    "<button id=\"search_doc\"> Submit </button></center> <br> <br>";
   
   var ongoingTreat;
   
   $("#content").html(Treatments).promise().done(function()
 	  		{
 				  ongoingTreat = $("#trt_table").DataTable({
-				      columns: [{data:"treatment_id"}, {data:"doctor_id"}, {data:"start_time"}, {data:"next_appointment"}],
+				      columns: [{
+			                	"className":      'details-control',
+			                	"orderable":      false,
+			                	"data":           null,
+			                	"defaultContent": ''
+			            		},{data:"treatment_id"}, {data:"doctor_id"}, {data:"start_time"}, {data:"next_appointment"},
+			            		{
+						    		  data: null,
+						    		  render: function(data,type,row){
+						    			  
+						    			  var ret = '<button onclick=give_feedback(' + data["treatment_id"] + ')>' +  'GIVE FEEDBACK </button>';
+						    			  console.log(ret);
+						    			  return ret;
+						    		  }
+						    	  }],
 					  ajax : {
 							url: "Treatments",
 							data: {
@@ -32,10 +48,29 @@ function loadHome()
 						}
 				  });			        
 	  		});
-  
-  $('#trt_table tbody').on( 'click', 'tr', function () {
-	 loadTreatmentDetail(ongoingTreat.row(this).data()["treatment_id"], ongoingTreat.row(this).data()["doctor_id"], "true");
-  });
+
+	$('#trt_table tbody').on('click', 'td.details-control', function () {
+	    var tr = $(this).closest('tr');
+	    var row = ongoingTreat.row( tr );
+	    console.log(row);
+	    if ( row.child.isShown() ) {
+	        // This row is already open - close it
+	        row.child.hide();
+	        tr.removeClass('shown');
+	    }
+	    else {
+	        // Open this row
+	    	var tid_trt = "trt_detail_table" + row.index();
+	  	  row.child	("<table id=" + tid_trt + " class=\"display\">"
+	  		      + " <thead>" 
+	  		      + " <tr> <th></th> <th>APPOINTMENT ID</th> <th>SCHEDULED TIME</th> </tr>"
+	  		      + " </thead>"
+	  		      + " </table>").show();
+	  	  console.log(row.data()["treatment_id"]);
+	  	  loadTreatmentDetail(row.data()["treatment_id"], true,tid_trt);
+	  	  tr.addClass('shown');
+	    }
+	 });
   
   $("#hide_order").html(init_bar).promise().done(function(){
 	  $("#name").autocomplete({
@@ -130,6 +165,17 @@ function loadHome()
   
 }
 
+function give_feedback(treatment_id) {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("treatment_id").value = treatment_id;
+    document.getElementById("feedback").value = "";
+}
+
+function closeForm() {
+	document.getElementById("feedback").value = "";
+    document.getElementById("myForm").style.display = "none";
+}	
+
 function treatment_history()
 {
 	
@@ -162,85 +208,103 @@ function treatment_history()
 
 
 
-function loadTreatmentDetail(treatment_id, doctor_id, current)
+function loadTreatmentDetail(treatment_id, current,tid_trt)
 {
-	TreatmentDetail = "<table id=\"trt_detail_table\" class=\"display\">"
-	      + " <thead>" 
-	      + " <tr> <th>APPOINTMENT ID</th> <th>SCHEDULED TIME</th> </tr>"
-	      + " </thead>"
-	      + " </table>"
-	      + "<button id=\"chat_patient\" onclick=\"loadchatdetails(" + doctor_id + ")\">Chat with Doctor</button>"
+	
 	  var listAppointments;
-	  $("#content").html(TreatmentDetail).promise().done(function()
-		  		{
-					  listAppointments = $("#trt_detail_table").DataTable({
-					      columns: [{data:"appointment_id"}, {data:"start_time"}],
-						  ajax : {
-								url: "TreatmentDetail",
-								data: {
-									current: current,
-									treatment_id: treatment_id
-								}
-							}
-					  });			       
-		  		});
+	  listAppointments = $("#" + tid_trt).DataTable({
+	      columns: [{
+          	"className":      'details-control',
+        	"orderable":      false,
+        	"data":           null,
+        	"defaultContent": ''
+    		},{data:"appointment_id"}, {data:"start_time"}],
+		  ajax : {
+				url: "TreatmentDetail",
+				data: {
+					current: current,
+					treatment_id: treatment_id
+				}
+			},
+	  searching: false, paging: false, info: false
+	  });			       
 	  
-	  $('#trt_detail_table tbody').on( 'click', 'tr', function () {
-			 loadAppointmentDetail(listAppointments.row(this).data()["appointment_id"]);
-		  });
+//	  $('#trt_detail_table tbody').on( 'click', 'tr', function () {
+//			 loadAppointmentDetail(listAppointments.row(this).data()["appointment_id"]);
+//		  });
+	  $('#'+tid_trt + ' tbody').on('click', 'td.details-control', function () {
+	      var tr = $(this).closest('tr');
+	      var row = listAppointments.row( tr );
+	      if ( row.child.isShown() ) {
+	          // This row is already open - close it
+	          row.child.hide();
+	          tr.removeClass('shown');
+	      }
+	      else {
+	          // Open this row
+	    	  var tid = "app_detail_table" + row.index();
+	    	  row.child("<table id=" + tid + " class=\"display\">"
+	    			      + " <thead>" 
+	    			      + " <tr> <th>MEDICINE ID</th> <th>QUANTITY</th> <th></th> </tr>"  
+	    			      + " </thead>"
+	    			      + " </table>").show();
+	    	  loadAppointmentDetail(row.data()["appointment_id"],tid);
+	    	  tr.addClass('shown');
+	      }
+	  } );
 }
 
-function loadAppointmentDetail(appointment_id)
+function loadAppointmentDetail(appointment_id,tid)
 {
-	AppointmentDetail = 
-		 "<div id=\"appointment_id\"> </div>"
-		+ "<div id = \"reason_for_visit\"> </div>"
-		+ "<div id = \"sched_time\"> </div>"
-		  + "<table id=\"app_detail_table\" class=\"display\">"
-	      + " <thead>" 
-	      + " <tr> <th>MEDICINE ID</th> <th>QUANTITY</th> <th></th> </tr>"  
-	      + " </thead>"
-	      + " </table>"
-	      + "<div id = \"comments\"> </div>";
+	
+	console.log(appointment_id + " " + tid);
+//	AppointmentDetail = 
+//		 "<div id=\"appointment_id\"> </div>"
+//		+ "<div id = \"reason_for_visit\"> </div>"
+//		+ "<div id = \"sched_time\"> </div>"
+//		  + "<table id=\"app_detail_table\" class=\"display\">"
+//	      + " <thead>" 
+//	      + " <tr> <th>MEDICINE ID</th> <th>QUANTITY</th> <th></th> </tr>"  
+//	      + " </thead>"
+//	      + " </table>"
+//	      + "<div id = \"comments\"> </div>";
 	      
 		
 	
-	$("#content").html(AppointmentDetail).promise().done(function()
-	  		{
+//	$("#content").html(AppointmentDetail).promise().done(function()
+//	  		{
 				var xhttp = new XMLHttpRequest();
 			    xhttp.onreadystatechange = function() {
 			       if (this.readyState == 4 && this.status == 200)
 			       {
 			        	
 			        	var obj = JSON.parse(this.responseText);
-			        	document.getElementById("appointment_id").innerHTML = "Appointment id: " + obj.data[0].appointment_id;
-			        	document.getElementById("reason_visit").innerHTML = "Reason for visit: " + obj.data[0].reason_visit;
-			        	document.getElementById("sched_time").innerHTML = "Scheduled time: " + obj.data[0].start_time;
-			        	document.getElementById("comments").innerHTML = "Comments: " + obj.data[0].comments;
+//			        	document.getElementById("appointment_id").innerHTML = "Appointment id: " + obj.data[0].appointment_id;
+//			        	document.getElementById("reason_visit").innerHTML = "Reason for visit: " + obj.data[0].reason_visit;
+//			        	document.getElementById("sched_time").innerHTML = "Scheduled time: " + obj.data[0].start_time;
+//			        	document.getElementById("comments").innerHTML = "Comments: " + obj.data[0].comments;
 			        	
 			        	
-			       }
-			       else{
-			    	   
 			       }
 			    };
 			    xhttp.open("GET", "AppointmentDetail?appointment_id=" + appointment_id, true);
 			    xhttp.send();
 		
-				$("#appointment_id").html("Appointment_id:" + appointment_id);
+//				$("#appointment_id").html("Appointment_id:" + appointment_id);
 				
 				
-				  var listAppointments = $("#app_detail_table").DataTable({
+				  var listAppointments = $("#"+tid).DataTable({
 				      columns: [{data:"medicine_id"}, {data:"quantity"}],
 					  ajax : {
 							url: "AppointmentDetail",
 							data: {
 								appointment_id: appointment_id
 							}
-						}
+						},
+				  searching: false, paging: false, info: false
 				  });
 		        
-	  		});
+//	  		});
 }
 
 function searchDoctor(name,hospital,locality,qualifications)
@@ -277,18 +341,19 @@ function searchDoctor(name,hospital,locality,qualifications)
 
 function viewProfileDetails(doctor_id)
 {
-	profile_Det = "<div id = \"name\"> </div>"
+	profile_Det = "<div id = \"name1\"> </div>"
 		  		+  "<div id = \"gender\"> </div>"
-		  		+  "<div id = \"hospital\"> </div>"
+		  		+  "<div id = \"hospital1\"> </div>"
 		  		+  "<div id = \"start_work_time\"> </div>"
 		  		+  "<div id = \"end_work_time\"> </div>"
-		  		+  "<div id = \"slot_time\"> </div>"
+		  		+  "<div id = \"hours\"> </div>"
+		  		+  "<div id = \"minutes\"> </div>"
 		  		+  "<div id = \"hospital_address\"> </div>"
 		  		+  "<div id = \"fees\"> </div>"
 		  		+  "<div id = \"rating\"> </div>"
-		  		+ "<div id = \"age\"> </div>"
+		  		+  "<div id = \"age1\"> </div>"
 		  		+  "<div id = \"doctor_id\"> </div>"
-		  		+  "<div id = \"qualifications\"> </div>"
+		  		+  "<div id = \"qualifications1\"> </div>"
 		  		+  "<div id = \"speciality\"> </div>"
 		  		+  "<div id = \"college\"> </div>"
 		  		+  "<div id = \"completion\"> </div>"
@@ -300,18 +365,18 @@ function viewProfileDetails(doctor_id)
 	
 	var listAppointments;
   	$("#content").html(profile_Det).promise().done(function()
-	  		{
+  		{
   		var xhttp = new XMLHttpRequest();
 	    xhttp.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200)
 	       {
 	        	var obj = JSON.parse(this.responseText);
-	        	console.log(obj);
-	        	document.getElementById("name").innerHTML = "name: " + obj.data[0].name;
+	        	document.getElementById("name1").innerHTML = "Name: " + obj.data[0].name;
+
 	        	document.getElementById("gender").innerHTML = "Gender: " + obj.data[0].gender;
-	        	document.getElementById("age").innerHTML = "Age: " + obj.data[0].age;
+	        	document.getElementById("age1").innerHTML = "Age: " + obj.data[0].age;
 	        	document.getElementById("doctor_id").innerHTML = "Doc id: " + obj.data[0].doctor_id;
-	        	document.getElementById("qualifications").innerHTML = "Qualification : " + obj.data[0].qualifications;
+	        	document.getElementById("qualifications1").innerHTML = "Qualification : " + obj.data[0].qualifications;
 	        	document.getElementById("speciality").innerHTML = "Speciality: " + obj.data[0].speciality;
 	        	document.getElementById("college").innerHTML = "College: " + obj.data[0].college;
 	        	document.getElementById("completion").innerHTML = "Completion: " + obj.data[0].completion;
@@ -319,10 +384,11 @@ function viewProfileDetails(doctor_id)
 	        	document.getElementById("regnum").innerHTML = "Regnum: " + obj.data[0].regnum;
 	        	document.getElementById("regcouncil").innerHTML = "Regcouncil: " + obj.data[0].regcouncil;
 	        	document.getElementById("regyear").innerHTML = "Regyear: " + obj.data[0].regyear;
-	        	document.getElementById("start_work_time").innerHTML = "Working Hours (Start): " + obj.data[0].weekday_hours;
-	        	document.getElementById("end_work_time").innerHTML = "Working Hours (End): " + obj.data[0].weekend_hours;
-	        	document.getElementById("slot_time").innerHTML = "Slot_time: " + obj.data[0].slot_time;
-	        	document.getElementById("hospital").innerHTML = "Hospital: " + obj.data[0].hospital;
+	        	document.getElementById("start_work_time").innerHTML = "Working Hours (Weekdays): " + obj.data[0].weekday_hours;
+	        	document.getElementById("end_work_time").innerHTML = "Working Hours (Weekends): " + obj.data[0].weekend_hours;
+	        	document.getElementById("hours").innerHTML = "Hours: " + parseSlotTimeHour(obj.data[0].slot_time);
+	        	document.getElementById("minutes").innerHTML = "Minutes: " + parseSlotTimeMin(obj.data[0].slot_time);
+	        	document.getElementById("hospital1").innerHTML = "Hospital: " + obj.data[0].hospital;
 	        	document.getElementById("hospital_address").innerHTML = "Hospital Address: " + obj.data[0].hospital_address;
 	        	document.getElementById("fees").innerHTML = "Fees: " + obj.data[0].fees;
 	        	document.getElementById("rating").innerHTML = "Rating: " + obj.data[0].rating;
@@ -335,6 +401,21 @@ function viewProfileDetails(doctor_id)
 	    xhttp.send();
 	  	});
 }
+
+function parseSlotTimeHour(slot_time)
+{
+	var days_ind = slot_time.indexOf("days"); 
+	var hour = slot_time.charAt(days_ind+5);
+	return hour;
+}
+
+function parseSlotTimeMin(slot_time)
+{
+	var days_ind = slot_time.indexOf("days"); 
+	var minutes = slot_time.substring(days_ind +13,days_ind +15);
+	return minutes;
+}
+
 
 function loadProfile()
 {
@@ -888,15 +969,29 @@ function bookAppointment(doctor_id, date, startTime) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+function formclick()
+{
+	var feedback = document.getElementById("feedback").value;
+	var treatment_id = document.getElementById("treatment_id").value;
+	
+	console.log(feedback);
+	
+//	var params = 'feedback=' + feedback + '&treatment_id=' + treatment_id;
+	
+	var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+       if (this.readyState == 4 && this.status == 200)
+       {
+    	   
+       }
+       else
+       {   
+       }
+       
+       }
+    xhttp.open("GET", "Feedback?feedback=" + feedback + "&treatment_id=" + treatment_id, true);
+    xhttp.send();
+    
+    closeForm();
+}
 
